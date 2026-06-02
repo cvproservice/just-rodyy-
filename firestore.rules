@@ -1,0 +1,61 @@
+// ════════════════════════════════════════════════
+//  Firestore Security Rules — Just Rodyy Forever
+//  Paste these in Firebase Console → Firestore → Rules
+// ════════════════════════════════════════════════
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Only authenticated users can read/write
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    // Messages: any authenticated user can read/write
+    match /messages/{msgId} {
+      allow read, write: if isAuth();
+    }
+
+    // Typing indicators
+    match /typing/{userId} {
+      allow read, write: if isAuth();
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow read, write: if isAuth();
+    }
+
+    // Call signaling
+    match /calls/{userId} {
+      allow read, write: if isAuth();
+    }
+
+    // WebRTC rooms
+    match /rooms/{roomId} {
+      allow read, write: if isAuth();
+      match /callerCandidates/{candId} {
+        allow read, write: if isAuth();
+      }
+      match /partnerCandidates/{candId} {
+        allow read, write: if isAuth();
+      }
+    }
+
+    // Memories
+    match /memories/{memId} {
+      allow read, write: if isAuth();
+    }
+
+    // Calendar events
+    match /calendarEvents/{evId} {
+      allow read, write: if isAuth();
+    }
+
+    // Todos
+    match /todos/{todoId} {
+      allow read, write: if isAuth();
+    }
+  }
+}
