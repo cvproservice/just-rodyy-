@@ -156,34 +156,21 @@ function initLogin() {
   accessInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
 }
 
-// Helper: get current language from index.html lang system
-function getLang() {
-  return (typeof currentLang !== 'undefined' ? currentLang : null)
-    || localStorage.getItem('lang') || 'en';
-}
-
 async function handleLogin() {
   const userId = document.getElementById('userSelect').value;
   const code   = accessInput.value.trim();
-  const lang   = getLang();
   loginError.textContent = '';
 
-  if (!userId) {
-    loginError.textContent = lang === 'ar' ? 'اختر هويتك أولاً' : 'Please choose who you are.';
-    return;
-  }
-  if (!code) {
-    loginError.textContent = lang === 'ar' ? 'أدخل الرمز السري' : 'Please enter your secret code.';
-    return;
-  }
+  if (!userId) { loginError.textContent = 'Please choose who you are.'; return; }
+  if (!code)   { loginError.textContent = 'Please enter your secret code.'; return; }
 
   const user = USERS[userId];
   if (!user || code !== user.code) {
-    loginError.textContent = lang === 'ar' ? 'رمز خاطئ، حاول مجدداً 🔒' : 'Wrong code. Try again! 🔒';
+    loginError.textContent = 'Wrong code. Try again! 🔒';
     return;
   }
 
-  loginBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${lang === 'ar' ? 'جارٍ الدخول…' : 'Entering…'}`;
+  loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entering…';
   loginBtn.disabled = true;
 
   try {
@@ -199,17 +186,9 @@ async function handleLogin() {
     localStorage.setItem('jrf_userId', userId);
 
     await launchApp();
-    // Init local features (calendar, quotes, memories, todos)
-    if (typeof window.initLocalFeatures === 'function') {
-      window.initLocalFeatures(userId);
-    }
   } catch (err) {
-    loginError.textContent = lang === 'ar'
-      ? 'خطأ في الاتصال. تحقق من إعدادات Firebase.'
-      : 'Connection error. Check Firebase config.';
-    loginBtn.innerHTML = lang === 'ar'
-      ? '<span>ادخل عالمنا</span><i class="fas fa-arrow-left"></i>'
-      : '<span>Enter Our World</span><i class="fas fa-arrow-right"></i>';
+    loginError.textContent = 'Connection error. Check Firebase config.';
+    loginBtn.innerHTML = '<span>Enter Our World</span><i class="fas fa-arrow-right"></i>';
     loginBtn.disabled = false;
     console.error(err);
   }
@@ -219,8 +198,8 @@ async function handleLogin() {
 //  LAUNCH APP
 // ═══════════════════════════════════════════════════════════════════
 async function launchApp() {
-  loginPage.style.display = 'none';
-  appShell.style.display  = 'flex';
+  loginPage.classList.remove('active');
+  appShell.classList.add('active');
 
   const me      = USERS[currentUserId];
   const partner = USERS[partnerUserId];
@@ -798,13 +777,7 @@ if (savedId && USERS[savedId]) {
     const saved = JSON.parse(remembered);
     currentUserId = saved.userId;
     partnerUserId = USERS[saved.userId].partnerId;
-    signInAnonymously(auth).then(() => {
-      return launchApp();
-    }).then(() => {
-      if (typeof window.initLocalFeatures === 'function') {
-        window.initLocalFeatures(currentUserId);
-      }
-    }).catch(() => {});
+    signInAnonymously(auth).then(() => launchApp()).catch(() => {});
   }
 }
 
