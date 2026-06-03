@@ -36,6 +36,7 @@ body{background:var(--dark);color:#fff;font-family:var(--font-ui);overflow-x:hid
 
 /* ===== LOGIN ===== */
 #loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative}
+#loginPage.hidden{display:none!important}
 .login-glass{
   background:rgba(2,4,8,0.7);border:1px solid var(--glass-border);
   backdrop-filter:blur(30px);border-radius:24px;padding:48px 40px;
@@ -607,8 +608,7 @@ body{background:var(--dark);color:#fff;font-family:var(--font-ui);overflow-x:hid
 <canvas id="particleCanvas"></canvas>
 
 <!-- ================== LOGIN ================== -->
-<div id="loginPage" class="page active">
-  <div id="loginPage" style="min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:5">
+<div id="loginPage" style="min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:5">
     <div class="login-glass">
       <div class="logo-wrap">
         <div class="logo-orb">
@@ -1288,62 +1288,24 @@ document.addEventListener('mousemove', e => {
 });
 
 // ============================================================
-// APP LOGIC
+// APP LOGIC — login handled by app.js (Firebase)
+// Fallback local users for non-Firebase features (quotes, calendar, etc.)
 // ============================================================
-const CODES = { user1: '1234', user2: '5678' };
 const USERS = {
-  user1: { name:'Rody 💙', avatar:'https://api.dicebear.com/7.x/adventurer/svg?seed=rody&backgroundColor=b6e3f4' },
-  user2: { name:'My Love 💖', avatar:'https://api.dicebear.com/7.x/adventurer/svg?seed=love&backgroundColor=ffd5dc' }
+  user1: { name:'Rody 💙', avatar:'https://api.dicebear.com/8.x/lorelei/svg?seed=rody&backgroundColor=ffb6c1' },
+  user2: { name:'My Love 💖', avatar:'https://api.dicebear.com/8.x/lorelei/svg?seed=love&backgroundColor=c8e6c9' }
 };
-let currentUser = null;
+let currentUser = localStorage.getItem('jrf_userId') || null;
 
-function login() {
-  const sel = document.getElementById('userSelect').value;
-  const code = document.getElementById('accessCode').value;
-  const err = document.getElementById('loginError');
-  if (!sel) { err.textContent = currentLang === 'ar' ? 'اختر هويتك' : 'Please select who you are'; return; }
-  if (code !== CODES[sel]) { err.textContent = currentLang === 'ar' ? 'رمز خاطئ، حاول مجدداً' : 'Wrong code, try again'; return; }
-  err.textContent = '';
-  currentUser = sel;
-  if (document.getElementById('rememberMe').checked) localStorage.setItem('loggedInAs', sel);
-  showApp();
-}
-
-function showApp() {
-  const u = USERS[currentUser];
-  document.getElementById('loginPage').style.display = 'none';
-  const app = document.getElementById('appShell');
-  app.style.display = 'flex';
-  document.getElementById('sidebarAvatarImg').src = u.avatar;
-  document.getElementById('sidebarName').textContent = u.name;
-  document.getElementById('dashGreetName').textContent = u.name;
-  const partner = currentUser === 'user1' ? 'user2' : 'user1';
-  const pu = USERS[partner];
-  document.getElementById('partnerAvatar').src = pu.avatar;
-  document.getElementById('partnerName').textContent = pu.name;
-  document.getElementById('chatPartnerAvatar').src = pu.avatar;
-  document.getElementById('chatPartnerName').textContent = pu.name;
-  document.getElementById('settingsAvatar').src = u.avatar;
+// ── Local features init (called by app.js after Firebase login) ──
+window.initLocalFeatures = function(userId) {
+  currentUser = userId;
   loadCounter(); loadQuote(); renderCalendar(); renderTodos(); renderMemories();
+};
+// Auto-init if already logged in via localStorage
+if (currentUser && USERS[currentUser]) {
+  setTimeout(() => { loadCounter(); loadQuote(); renderCalendar(); renderTodos(); renderMemories(); }, 500);
 }
-
-// Auto-login
-const saved = localStorage.getItem('loggedInAs');
-if (saved && USERS[saved]) { currentUser = saved; showApp(); }
-
-document.getElementById('loginBtn').addEventListener('click', login);
-document.getElementById('accessCode').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
-document.getElementById('eyeBtn').addEventListener('click', () => {
-  const inp = document.getElementById('accessCode');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-  document.getElementById('eyeBtn').innerHTML = inp.type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-});
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  localStorage.removeItem('loggedInAs');
-  currentUser = null;
-  document.getElementById('appShell').style.display = 'none';
-  document.getElementById('loginPage').style.display = 'flex';
-});
 
 // Navigation
 function navigate(page) {
@@ -1357,8 +1319,6 @@ function navigate(page) {
 document.querySelectorAll('[data-page]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); navigate(el.dataset.page); }));
 document.getElementById('qaChat')?.addEventListener('click', () => navigate('chat'));
 document.getElementById('qaCall')?.addEventListener('click', () => document.getElementById('startCallBtn')?.click());
-document.getElementById('startCallBtn')?.addEventListener('click', () => showToast(currentLang === 'ar' ? 'المكالمات تتطلب Firebase' : 'Video calls require Firebase setup'));
-document.getElementById('chatCallBtn')?.addEventListener('click', () => showToast(currentLang === 'ar' ? 'المكالمات تتطلب Firebase' : 'Video calls require Firebase setup'));
 
 // Relationship Counter
 let counterInterval;
