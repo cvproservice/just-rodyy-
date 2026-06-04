@@ -1,419 +1,655 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <meta name="theme-color" content="#0f172a" />
-  <meta name="description" content="Just Rodyy Forever — A private space for two 💕" />
-  <title>Just Rodyy Forever 💕</title>
-
-  <!-- PWA -->
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Just Rodyy Forever 💙</title>
+<meta name="theme-color" content="#0a0015"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --void:#00000a;--deep:#0a0015;--neon-blue:#00d4ff;
+  --neon-pink:#ff006e;--neon-purple:#8b00ff;
+  --glow-blue:0 0 20px rgba(0,212,255,.5),0 0 60px rgba(0,212,255,.2);
+  --glow-pink:0 0 20px rgba(255,0,110,.5),0 0 60px rgba(255,0,110,.2);
+  --glow-purple:0 0 20px rgba(139,0,255,.5),0 0 60px rgba(139,0,255,.2);
+  --font-body:'Tajawal',sans-serif;
+}
+[data-lang="en"]{--font-body:'Rajdhani',sans-serif;}
+[data-theme="rose"]{--neon-blue:#ff9eb5;--neon-purple:#e040fb;--neon-pink:#ff1744;--deep:#1a0010;}
+[data-theme="cyber"]{--neon-blue:#00ff88;--neon-purple:#00d4ff;--neon-pink:#ff6600;--deep:#000a05;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow-x:hidden;background:var(--void);color:#fff;font-family:var(--font-body);}
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.aurora{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 20% 30%,rgba(0,212,255,.04) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 70%,rgba(139,0,255,.04) 0%,transparent 60%);
+  animation:aurora-shift 10s ease-in-out infinite alternate;}
+@keyframes aurora-shift{0%{opacity:.6;}100%{opacity:1;transform:scale(1.05);}}
+#loadScreen{position:fixed;inset:0;z-index:999;background:var(--void);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;transition:opacity .5s;}
+.load-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1rem,3vw,1.5rem);
+  background:linear-gradient(135deg,var(--neon-blue),var(--neon-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.load-bar{width:200px;height:2px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;}
+.load-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--neon-blue),var(--neon-purple),var(--neon-pink));border-radius:2px;animation:load-a 1.5s ease forwards;}
+@keyframes load-a{to{width:100%;}}
+#toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-100px);
+  background:rgba(10,0,21,.95);border:1px solid rgba(0,212,255,.3);border-radius:50px;
+  padding:.6rem 1.5rem;font-family:'Orbitron',monospace;font-size:.7rem;letter-spacing:.1em;
+  color:var(--neon-blue);z-index:1000;transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:var(--glow-blue);white-space:nowrap;}
+#toast.show{transform:translateX(-50%) translateY(0);}
+#langToggle{position:fixed;top:1rem;inset-inline-end:1rem;z-index:200;
+  background:rgba(10,0,21,.8);border:1px solid rgba(0,212,255,.2);border-radius:50px;
+  padding:.4rem .9rem;color:var(--neon-blue);font-family:'Orbitron',monospace;font-size:.65rem;
+  letter-spacing:.1em;cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);}
+#langToggle:hover{box-shadow:var(--glow-blue);}
+#loginPage{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at center,#1a0030 0%,#000008 70%);}
+.login-box{width:min(420px,90vw);text-align:center;}
+.heart-svg{width:80px;height:80px;margin:0 auto 1.5rem;animation:hb 1.5s ease-in-out infinite;
+  filter:drop-shadow(0 0 15px var(--neon-pink)) drop-shadow(0 0 30px rgba(255,0,110,.4));}
+@keyframes hb{0%,100%{transform:scale(1);}14%{transform:scale(1.15);}28%{transform:scale(1);}42%{transform:scale(1.08);}56%{transform:scale(1);}}
+.login-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.2rem,3.5vw,2rem);
+  background:linear-gradient(135deg,var(--neon-blue),var(--neon-pink),var(--neon-purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:tg 3s ease-in-out infinite alternate;margin-bottom:.3rem;}
+@keyframes tg{from{filter:drop-shadow(0 0 8px rgba(0,212,255,.6));}to{filter:drop-shadow(0 0 20px rgba(255,0,110,.8));}}
+.login-sub{color:rgba(255,255,255,.3);letter-spacing:.2em;font-size:.75rem;text-transform:uppercase;margin-bottom:2rem;}
+.glass-panel{background:rgba(10,0,21,.7);border:1px solid rgba(0,212,255,.15);border-radius:16px;padding:2rem;backdrop-filter:blur(20px);position:relative;overflow:hidden;}
+.glass-panel::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);animation:scan 3s linear infinite;}
+@keyframes scan{to{left:100%;}}
+.field-lbl{font-family:'Orbitron',monospace;font-size:.6rem;letter-spacing:.2em;color:rgba(0,212,255,.6);text-transform:uppercase;margin-bottom:.5rem;text-align:start;}
+.neo-select,.neo-input{width:100%;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.2);
+  border-radius:8px;color:#fff;padding:.85rem 1rem;font-family:var(--font-body);font-size:1rem;
+  outline:none;transition:all .3s;margin-bottom:1rem;appearance:none;}
+.neo-select:focus,.neo-input:focus{border-color:var(--neon-blue);box-shadow:0 0 0 2px rgba(0,212,255,.1);}
+.neo-select option{background:#0a0015;}.neo-input::placeholder{color:rgba(255,255,255,.2);}
+.input-row{position:relative;margin-bottom:1rem;}.input-row .neo-input{margin-bottom:0;}
+.eye-btn{position:absolute;top:50%;transform:translateY(-50%);inset-inline-end:1rem;background:none;border:none;color:rgba(0,212,255,.5);cursor:pointer;font-size:.9rem;}
+.neo-btn{width:100%;padding:1rem;background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));border:none;border-radius:8px;color:#fff;font-family:'Orbitron',monospace;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:transform .2s,box-shadow .3s;margin-top:.5rem;}
+.neo-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,.4);}
+.neo-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transition:left .5s;}
+.neo-btn:hover::before{left:100%;}
+.login-err{color:var(--neon-pink);font-size:.8rem;margin-top:.8rem;min-height:1.2rem;font-family:'Orbitron',monospace;}
+#appShell{display:none;position:relative;z-index:10;min-height:100vh;}
+.holo-nav{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:200;
+  background:rgba(10,0,21,.85);border:1px solid rgba(0,212,255,.15);border-radius:50px;
+  padding:.6rem 1.2rem;display:flex;gap:.2rem;backdrop-filter:blur(20px);box-shadow:0 0 30px rgba(0,0,0,.5);}
+.nav-btn{width:44px;height:44px;border:none;background:none;color:rgba(255,255,255,.3);border-radius:50%;cursor:pointer;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:all .3s;position:relative;}
+.nav-btn.active{color:var(--neon-blue);background:rgba(0,212,255,.1);}
+.nav-btn.active::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--neon-blue);box-shadow:var(--glow-blue);}
+.nav-btn:hover{color:var(--neon-blue);}
+.page{display:none;min-height:100vh;padding:4rem 1rem 6rem;max-width:600px;margin:0 auto;}
+.page.active{display:block;}
+.page-title{font-family:'Cinzel Decorative',serif;font-size:1.2rem;background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1.5rem;padding-top:1rem;}
+.dash-top{text-align:center;padding-top:2.5rem;}
+.avatar-wrap{width:75px;height:75px;margin:0 auto 1rem;position:relative;}
+.user-avatar{width:100%;height:100%;border-radius:50%;border:2px solid var(--neon-blue);box-shadow:var(--glow-blue);object-fit:cover;}
+.online-dot{position:absolute;bottom:3px;right:3px;width:12px;height:12px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px #00ff88;border:2px solid var(--deep);}
+.greeting-lbl{font-family:'Orbitron',monospace;font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.4);text-transform:uppercase;}
+.user-name-lbl{font-family:'Cinzel Decorative',serif;font-size:1.4rem;background:linear-gradient(135deg,var(--neon-blue),var(--neon-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.counter-box{margin:2rem auto;background:rgba(0,212,255,.03);border:1px solid rgba(0,212,255,.1);border-radius:16px;padding:1.5rem;text-align:center;position:relative;overflow:hidden;}
+.counter-box::before{content:'';position:absolute;inset:0;background:conic-gradient(from 0deg,transparent 0%,rgba(0,212,255,.04) 50%,transparent 100%);animation:spin-s 8s linear infinite;pointer-events:none;}
+@keyframes spin-s{to{transform:rotate(360deg);}}
+.together-since{font-family:'Orbitron',monospace;font-size:.6rem;letter-spacing:.25em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:1rem;position:relative;z-index:1;}
+.counter-nums{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+.c-unit{text-align:center;}
+.c-num{font-family:'Orbitron',monospace;font-size:clamp(1.2rem,3.5vw,1.8rem);font-weight:900;background:linear-gradient(180deg,#fff,var(--neon-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.c-lbl{font-size:.55rem;letter-spacing:.1em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-top:.2rem;}
+.c-sep{font-size:1.3rem;color:rgba(0,212,255,.3);align-self:flex-start;margin-top:.3rem;}
+.date-edit{background:none;border:none;color:rgba(0,212,255,.4);font-family:'Orbitron',monospace;font-size:.6rem;cursor:pointer;letter-spacing:.1em;display:block;margin:.5rem auto;}
+#startDateInput{display:none;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:6px;color:#fff;padding:.4rem .7rem;font-size:.8rem;margin:.3rem auto;}
+.quote-box{background:rgba(139,0,255,.05);border:1px solid rgba(139,0,255,.15);border-radius:12px;padding:1.2rem;margin:1.2rem 0;cursor:pointer;transition:all .3s;position:relative;}
+.quote-box:hover{border-color:rgba(139,0,255,.4);box-shadow:var(--glow-purple);}
+.quote-text{font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.7;font-style:italic;text-align:center;}
+.quote-icon{position:absolute;top:.7rem;inset-inline-end:.7rem;color:rgba(139,0,255,.4);font-size:.8rem;transition:transform .5s;}
+.quote-box:hover .quote-icon{transform:rotate(360deg);}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem;}
+.dash-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.2rem;cursor:pointer;transition:all .3s;text-align:center;position:relative;overflow:hidden;}
+.dash-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);opacity:0;transition:opacity .3s;}
+.dash-card:hover{border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.04);transform:translateY(-2px);}
+.dash-card:hover::before{opacity:1;}
+.dash-icon{font-size:1.5rem;margin-bottom:.4rem;}
+.dash-lbl{font-family:'Orbitron',monospace;font-size:.6rem;letter-spacing:.1em;color:rgba(255,255,255,.5);text-transform:uppercase;}
+.chat-wrap{height:calc(100vh - 7rem);display:flex;flex-direction:column;}
+.chat-hdr{display:flex;align-items:center;gap:.8rem;padding:1rem 0;border-bottom:1px solid rgba(0,212,255,.1);margin-bottom:.8rem;}
+.partner-avatar{width:40px;height:40px;border-radius:50%;border:2px solid var(--neon-pink);box-shadow:var(--glow-pink);object-fit:cover;}
+.partner-name{font-family:'Orbitron',monospace;font-size:.8rem;letter-spacing:.1em;}
+.partner-status{font-size:.7rem;color:rgba(255,255,255,.3);}
+.chat-actions{margin-inline-start:auto;display:flex;gap:.4rem;}
+.chat-icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(0,212,255,.2);background:rgba(0,212,255,.05);color:var(--neon-blue);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.85rem;transition:all .3s;}
+.chat-icon-btn:hover{background:rgba(0,212,255,.15);box-shadow:var(--glow-blue);}
+.search-bar{display:none;padding:.5rem 0;border-bottom:1px solid rgba(0,212,255,.1);margin-bottom:.5rem;}
+.search-bar.show{display:flex;gap:.5rem;}
+.search-input{flex:1;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;color:#fff;padding:.5rem .8rem;font-family:var(--font-body);font-size:.9rem;outline:none;}
+.search-close{background:none;border:none;color:rgba(0,212,255,.5);cursor:pointer;font-size:.9rem;}
+.msgs-area{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem;padding:.3rem 0;scrollbar-width:thin;scrollbar-color:rgba(0,212,255,.2) transparent;}
+.msg{max-width:78%;padding:.7rem .9rem;border-radius:12px;font-size:.95rem;line-height:1.5;animation:msg-in .3s ease;}
+@keyframes msg-in{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.msg.mine{align-self:flex-end;background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(139,0,255,.15));border:1px solid rgba(0,212,255,.2);border-end-end-radius:3px;}
+.msg.theirs{align-self:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-end-start-radius:3px;}
+.msg-meta{font-size:.6rem;color:rgba(255,255,255,.2);margin-top:.3rem;text-align:end;display:flex;align-items:center;justify-content:flex-end;gap:.3rem;}
+.msg-read{color:var(--neon-blue);}
+.msg-reactions{display:flex;gap:.3rem;margin-top:.3rem;flex-wrap:wrap;}
+.react-chip{background:rgba(255,255,255,.08);border-radius:50px;padding:.15rem .5rem;font-size:.8rem;cursor:pointer;}
+.typing-dots{align-self:flex-start;display:none;gap:.3rem;align-items:center;padding:.6rem .9rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;border-end-start-radius:3px;}
+.typing-dots.show{display:flex;}
+.t-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);animation:t-b 1.2s ease infinite;}
+.t-dot:nth-child(2){animation-delay:.2s;}.t-dot:nth-child(3){animation-delay:.4s;}
+@keyframes t-b{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);background:var(--neon-blue);}}
+.date-divider{text-align:center;font-size:.65rem;color:rgba(255,255,255,.2);font-family:'Orbitron',monospace;letter-spacing:.1em;margin:.5rem 0;position:relative;}
+.date-divider::before,.date-divider::after{content:'';position:absolute;top:50%;width:30%;height:1px;background:rgba(255,255,255,.08);}
+.date-divider::before{left:0;}.date-divider::after{right:0;}
+.chat-input-bar{display:flex;gap:.5rem;padding:.7rem 0 0;border-top:1px solid rgba(0,212,255,.1);}
+.chat-input{flex:1;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:12px;color:#fff;padding:.7rem 1rem;font-family:var(--font-body);font-size:.95rem;outline:none;resize:none;max-height:120px;overflow-y:auto;transition:border-color .3s;}
+.chat-input:focus{border-color:var(--neon-blue);}
+.chat-input::placeholder{color:rgba(255,255,255,.2);}
+.send-btn,.voice-btn,.attach-btn{width:42px;height:42px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.95rem;transition:all .3s;flex-shrink:0;}
+.send-btn{background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));color:#fff;}
+.send-btn:hover{box-shadow:var(--glow-blue);transform:scale(1.1);}
+.voice-btn{background:rgba(255,0,110,.08);border:1px solid rgba(255,0,110,.2);color:var(--neon-pink);}
+.voice-btn:hover,.voice-btn.recording{background:rgba(255,0,110,.15);box-shadow:var(--glow-pink);}
+.attach-btn{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.15);color:var(--neon-blue);}
+#voiceRecorder{display:none;background:rgba(255,0,110,.05);border:1px solid rgba(255,0,110,.2);border-radius:12px;padding:.8rem 1rem;gap:.7rem;align-items:center;flex-direction:row;}
+#voiceRecorder.show{display:flex;}
+#recTimer{font-family:'Orbitron',monospace;font-size:.85rem;color:var(--neon-pink);letter-spacing:.1em;}
+#waveCanvas{height:30px;flex:1;}
+.stop-rec,.cancel-rec{width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;}
+.stop-rec{background:var(--neon-pink);color:#fff;}
+.cancel-rec{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);}
+.msg-img{max-width:220px;border-radius:10px;display:block;cursor:pointer;}
+.voice-msg{display:flex;align-items:center;gap:.6rem;}
+.voice-play{width:30px;height:30px;border-radius:50%;background:var(--neon-blue);border:none;color:#fff;cursor:pointer;font-size:.75rem;flex-shrink:0;}
+.msg-del{opacity:.5;font-style:italic;}
+.msg-edited{font-size:.65rem;opacity:.4;margin-inline-start:.3rem;}
+#videoCallOverlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,10,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;backdrop-filter:blur(20px);}
+#videoCallOverlay.hidden{display:none;}
+#remoteVideo{width:100%;max-width:420px;max-height:55vh;object-fit:cover;border-radius:16px;background:#111;border:1px solid rgba(0,212,255,.2);box-shadow:var(--glow-blue);}
+#localVideo{position:fixed;bottom:5.5rem;right:1rem;width:90px;height:130px;object-fit:cover;border-radius:12px;border:2px solid var(--neon-pink);box-shadow:var(--glow-pink);}
+#callStatus{font-family:'Orbitron',monospace;font-size:.8rem;letter-spacing:.2em;color:var(--neon-blue);margin-bottom:1rem;display:none;}
+.call-btns{display:flex;gap:.8rem;margin-top:1.2rem;}
+.call-btn{width:54px;height:54px;border-radius:50%;border:none;font-size:1.1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;}
+.ctrl-btn{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);}
+.ctrl-btn:hover,.ctrl-btn.active{background:rgba(0,212,255,.15);border-color:var(--neon-blue);color:var(--neon-blue);}
+.end-btn{background:var(--neon-pink);color:#fff;box-shadow:var(--glow-pink);}
+#callTimerBar{position:fixed;top:1rem;left:50%;transform:translateX(-50%);background:rgba(10,0,21,.9);border:1px solid rgba(0,212,255,.2);border-radius:50px;padding:.4rem 1.2rem;font-family:'Orbitron',monospace;font-size:.8rem;color:var(--neon-blue);z-index:600;}
+#callTimerBar.hidden{display:none;}
+#incomingCallModal{position:fixed;inset:0;z-index:600;background:rgba(0,0,10,.8);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;}
+#incomingCallModal.hidden{display:none;}
+.incoming-card{background:rgba(10,0,21,.9);border:1px solid rgba(0,212,255,.2);border-radius:20px;padding:2rem;text-align:center;box-shadow:0 0 60px rgba(0,212,255,.1);}
+.incoming-avatar{width:75px;height:75px;border-radius:50%;border:3px solid var(--neon-blue);box-shadow:var(--glow-blue);margin:0 auto .8rem;display:block;animation:rp 1s infinite;}
+@keyframes rp{0%,100%{box-shadow:var(--glow-blue);}50%{box-shadow:0 0 40px rgba(0,212,255,.8);}}
+.incoming-name{font-family:'Cinzel Decorative',serif;font-size:1rem;margin-bottom:.2rem;}
+.incoming-lbl{font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.2rem;}
+.inc-btns{display:flex;gap:.8rem;justify-content:center;}
+.accept-btn{padding:.75rem 1.5rem;border-radius:50px;background:linear-gradient(135deg,#00ff88,#00d4ff);border:none;color:#000;font-family:'Orbitron',monospace;font-size:.7rem;letter-spacing:.1em;cursor:pointer;}
+.reject-btn{padding:.75rem 1.5rem;border-radius:50px;background:rgba(255,0,110,.1);border:1px solid var(--neon-pink);color:var(--neon-pink);font-family:'Orbitron',monospace;font-size:.7rem;letter-spacing:.1em;cursor:pointer;}
+.mem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:1rem;}
+.mem-card{border-radius:12px;overflow:hidden;position:relative;aspect-ratio:1;cursor:pointer;border:1px solid rgba(255,255,255,.06);transition:all .3s;}
+.mem-card:hover{transform:scale(1.03);box-shadow:var(--glow-purple);}
+.mem-card img{width:100%;height:100%;object-fit:cover;}
+.mem-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,20,.8) 0%,transparent 60%);padding:.7rem;display:flex;flex-direction:column;justify-content:flex-end;}
+.mem-note{font-size:.75rem;color:rgba(255,255,255,.85);}
+.mem-date{font-size:.6rem;color:rgba(0,212,255,.6);font-family:'Orbitron',monospace;}
+.add-mem-btn{width:100%;padding:1.1rem;background:rgba(139,0,255,.06);border:1px dashed rgba(139,0,255,.3);border-radius:12px;color:rgba(255,255,255,.4);cursor:pointer;font-size:.85rem;transition:all .3s;margin-top:.7rem;display:flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--font-body);}
+.add-mem-btn:hover{background:rgba(139,0,255,.1);border-color:var(--neon-purple);color:#fff;}
+.cal-nav-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.cal-arrow{width:32px;height:32px;border-radius:50%;border:1px solid rgba(0,212,255,.2);background:rgba(0,212,255,.05);color:var(--neon-blue);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.cal-arrow:hover{background:rgba(0,212,255,.15);}
+.cal-month-lbl{font-family:'Orbitron',monospace;font-size:.85rem;letter-spacing:.15em;color:rgba(255,255,255,.7);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.25rem;}
+.cal-day-hdr{text-align:center;font-size:.6rem;color:rgba(255,255,255,.2);text-transform:uppercase;padding:.3rem 0;}
+.cal-day{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:rgba(255,255,255,.5);cursor:pointer;transition:all .2s;position:relative;}
+.cal-day:hover{background:rgba(0,212,255,.1);color:#fff;}
+.cal-day.today{background:rgba(0,212,255,.15);color:var(--neon-blue);border:1px solid rgba(0,212,255,.3);}
+.cal-day.has-event::after{content:'';position:absolute;bottom:2px;width:4px;height:4px;border-radius:50%;background:var(--neon-pink);}
+.event-item{display:flex;align-items:center;gap:.7rem;padding:.7rem .9rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;margin-bottom:.4rem;}
+.event-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.event-name{flex:1;font-size:.9rem;}
+.event-date{font-size:.7rem;color:rgba(255,255,255,.3);font-family:'Orbitron',monospace;}
+.event-del{background:none;border:none;color:rgba(255,0,110,.4);cursor:pointer;}
+.todo-item{display:flex;align-items:center;gap:.7rem;padding:.75rem .9rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:8px;margin-bottom:.4rem;transition:all .3s;}
+.todo-check{width:20px;height:20px;border-radius:50%;border:2px solid rgba(0,212,255,.3);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;}
+.todo-item.done .todo-check{background:var(--neon-blue);border-color:var(--neon-blue);}
+.todo-txt{flex:1;font-size:.9rem;}.todo-item.done .todo-txt{text-decoration:line-through;opacity:.5;}
+.todo-del{background:none;border:none;color:rgba(255,0,110,.4);cursor:pointer;}
+.settings-sec{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.2rem;margin-bottom:1rem;}
+.settings-sec-title{font-family:'Orbitron',monospace;font-size:.65rem;letter-spacing:.2em;color:rgba(0,212,255,.6);text-transform:uppercase;margin-bottom:1rem;}
+.theme-btns{display:flex;gap:.5rem;}
+.theme-btn{flex:1;padding:.55rem;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.5);cursor:pointer;font-size:.8rem;font-family:var(--font-body);transition:all .3s;}
+.theme-btn.active,.theme-btn:hover{border-color:var(--neon-blue);color:var(--neon-blue);background:rgba(0,212,255,.08);}
+.profile-row{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;}
+.settings-avatar{width:50px;height:50px;border-radius:50%;border:2px solid var(--neon-blue);}
+.logout-btn{width:100%;padding:.85rem;background:rgba(255,0,110,.08);border:1px solid rgba(255,0,110,.2);border-radius:8px;color:var(--neon-pink);cursor:pointer;font-family:'Orbitron',monospace;font-size:.7rem;letter-spacing:.1em;transition:all .3s;}
+.logout-btn:hover{background:rgba(255,0,110,.15);box-shadow:var(--glow-pink);}
+#imgPreviewModal{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;}
+#imgPreviewModal.hidden{display:none;}
+#previewImg{max-width:95vw;max-height:90vh;border-radius:12px;object-fit:contain;}
+.preview-close{position:fixed;top:1rem;inset-inline-end:1rem;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;cursor:pointer;font-size:1.1rem;}
+#addMemModal{position:fixed;inset:0;z-index:600;background:rgba(0,0,10,.85);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;}
+#addMemModal.hidden{display:none;}
+.modal-box{background:rgba(10,0,21,.95);border:1px solid rgba(0,212,255,.2);border-radius:16px;padding:1.5rem;width:min(380px,90vw);}
+.modal-title{font-family:'Orbitron',monospace;font-size:.8rem;letter-spacing:.15em;color:var(--neon-blue);text-transform:uppercase;margin-bottom:1rem;}
+#memPreviewImg{width:100%;border-radius:10px;margin-bottom:.8rem;max-height:200px;object-fit:cover;display:none;}
+.modal-btns{display:flex;gap:.5rem;margin-top:.8rem;}
+.modal-cancel{flex:1;padding:.75rem;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);cursor:pointer;font-family:var(--font-body);}
+.modal-save{flex:2;padding:.75rem;border-radius:8px;background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));border:none;color:#fff;cursor:pointer;font-family:'Orbitron',monospace;font-size:.75rem;letter-spacing:.1em;}
+#contextMenu{position:fixed;z-index:800;background:rgba(10,0,21,.95);border:1px solid rgba(0,212,255,.2);border-radius:10px;padding:.4rem 0;min-width:140px;box-shadow:0 0 20px rgba(0,0,0,.5);}
+#contextMenu.hidden{display:none;}
+.ctx-item{padding:.6rem 1rem;cursor:pointer;font-size:.85rem;display:flex;align-items:center;gap:.5rem;transition:background .2s;}
+.ctx-item:hover{background:rgba(0,212,255,.08);}
+#emojiPicker{position:fixed;z-index:801;background:rgba(10,0,21,.95);border:1px solid rgba(0,212,255,.2);border-radius:10px;padding:.5rem;display:flex;gap:.3rem;flex-wrap:wrap;max-width:160px;}
+#emojiPicker.hidden{display:none;}
+#emojiPicker span{cursor:pointer;font-size:1.2rem;padding:.2rem;border-radius:6px;}
+#emojiPicker span:hover{background:rgba(255,255,255,.1);}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:rgba(0,212,255,.2);border-radius:2px;}
+</style>
 </head>
-<body>
-
-  <!-- ═══════════════════════════════════════ PARTICLE CANVAS ═══ -->
-  <canvas id="particleCanvas"></canvas>
-
-  <!-- ═══════════════════════════════════════ LOGIN PAGE ═══════════ -->
-  <div id="loginPage" class="page active">
-    <div class="login-container">
-      <div class="login-glass">
-        <div class="logo-wrap">
-          <div class="logo-heart">
-            <i class="fas fa-heart"></i>
-            <div class="logo-pulse"></div>
-          </div>
-          <h1 class="logo-title">Just Rodyy<br/><span>Forever</span></h1>
-        </div>
-        <p class="login-subtitle">Your private little universe 🌸</p>
-
-        <div class="form-group">
-          <label>Who are you?</label>
-          <div class="select-wrap">
-            <select id="userSelect">
-              <option value="">— choose —</option>
-              <option value="user1">Rody 💙</option>
-              <option value="user2">My Love 💖</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Secret Code</label>
-          <div class="input-wrap">
-            <input type="password" id="accessCode" placeholder="Enter your secret code…" />
-            <button class="eye-btn" id="eyeBtn" type="button"><i class="fas fa-eye"></i></button>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label class="checkbox-label">
-            <input type="checkbox" id="rememberMe" />
-            <span class="checkmark"></span>
-            Remember me
-          </label>
-        </div>
-
-        <button class="btn-primary" id="loginBtn">
-          <span>Enter Our World</span>
-          <i class="fas fa-arrow-right"></i>
-        </button>
-
-        <div id="loginError" class="error-msg"></div>
+<body data-lang="ar">
+<div class="aurora"></div>
+<canvas id="bg-canvas"></canvas>
+<div id="loadScreen">
+  <div class="load-title">Just Rodyy Forever 💙</div>
+  <div class="load-bar"><div class="load-fill"></div></div>
+</div>
+<button id="langToggle">EN / عربي</button>
+<div id="toast"></div>
+<div id="loginPage">
+  <div class="login-box">
+    <svg class="heart-svg" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="hg" x1="50" y1="5" x2="50" y2="85" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#ff006e" stop-opacity=".9"/><stop offset="100%" stop-color="#8b00ff" stop-opacity=".6"/>
+      </linearGradient></defs>
+      <path d="M50 85C50 85 5 55 5 28C5 14 16 5 28 5C37 5 45 10 50 18C55 10 63 5 72 5C84 5 95 14 95 28C95 55 50 85 50 85Z" fill="url(#hg)" stroke="rgba(255,0,110,.3)" stroke-width="1"/>
+    </svg>
+    <div class="login-title" id="loginTitle">Just Rodyy Forever</div>
+    <div class="login-sub" id="loginSub">عالمنا الخاص 🌌</div>
+    <div class="glass-panel">
+      <div class="field-lbl" id="lbl-who">من أنت؟</div>
+      <select class="neo-select" id="userSelect">
+        <option value="">— اختر —</option>
+        <option value="user1">Rody 💙</option>
+        <option value="user2">My Love 💖</option>
+      </select>
+      <div class="field-lbl" id="lbl-code">الكود السري</div>
+      <div class="input-row">
+        <input class="neo-input" id="codeInput" type="password" placeholder="أدخل الكود السري…"/>
+        <button class="eye-btn" id="eyeBtn"><i class="fas fa-eye"></i></button>
       </div>
+      <button class="neo-btn" id="loginBtn"><i class="fas fa-rocket" style="margin-inline-end:.5rem"></i><span id="btn-enter">ادخل عالمنا</span></button>
+      <div class="login-err" id="loginError"></div>
     </div>
   </div>
-
-  <!-- ═══════════════════════════════════════ APP SHELL ══════════════ -->
-  <div id="appShell" class="page">
-
-    <!-- ── Sidebar ── -->
-    <aside id="sidebar">
-      <div class="sidebar-top">
-        <div class="own-avatar" id="sidebarAvatar">
-          <img id="sidebarAvatarImg" src="" alt="" />
-          <span class="status-dot online"></span>
-        </div>
-        <p class="own-name" id="sidebarName">…</p>
+</div>
+<div id="appShell">
+  <nav class="holo-nav">
+    <button class="nav-btn active" data-page="dashboard"><i class="fas fa-home"></i></button>
+    <button class="nav-btn" data-page="chat"><i class="fas fa-comment-dots"></i></button>
+    <button class="nav-btn" data-page="memories"><i class="fas fa-images"></i></button>
+    <button class="nav-btn" data-page="calendar"><i class="fas fa-calendar-heart"></i></button>
+    <button class="nav-btn" data-page="settings"><i class="fas fa-sliders"></i></button>
+  </nav>
+  <div class="page active" id="page-dashboard">
+    <div class="dash-top">
+      <div class="avatar-wrap"><img class="user-avatar" id="myAvatar" src="" alt=""/><div class="online-dot"></div></div>
+      <div class="greeting-lbl" id="greetLbl">أهلاً بعودتك</div>
+      <div class="user-name-lbl" id="myNameLbl"></div>
+    </div>
+    <div class="counter-box">
+      <div class="together-since" id="togetherLbl">معاً منذ</div>
+      <div style="position:relative;z-index:1">
+        <button class="date-edit" id="editDateBtn">✏ <span id="setDateLbl">تعيين التاريخ</span></button>
+        <input type="date" id="startDateInput"/>
       </div>
-
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item active" data-page="dashboard"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="#" class="nav-item" data-page="chat"><i class="fas fa-comments"></i><span>Chat</span><span class="badge" id="chatBadge"></span></a>
-        <a href="#" class="nav-item" data-page="memories"><i class="fas fa-images"></i><span>Memories</span></a>
-        <a href="#" class="nav-item" data-page="calendar"><i class="fas fa-calendar-heart"></i><span>Calendar</span></a>
-        <a href="#" class="nav-item" data-page="todo"><i class="fas fa-list-check"></i><span>To-Do</span></a>
-        <a href="#" class="nav-item" data-page="settings"><i class="fas fa-sliders"></i><span>Settings</span></a>
-      </nav>
-
-      <div class="sidebar-bottom">
-        <button class="nav-item" id="logoutBtn"><i class="fas fa-right-from-bracket"></i><span>Logout</span></button>
+      <div class="counter-nums">
+        <div class="c-unit"><div class="c-num" id="cYears">0</div><div class="c-lbl" id="lbl-years">سنة</div></div>
+        <div class="c-sep">·</div>
+        <div class="c-unit"><div class="c-num" id="cMonths">0</div><div class="c-lbl" id="lbl-months">شهر</div></div>
+        <div class="c-sep">·</div>
+        <div class="c-unit"><div class="c-num" id="cDays">0</div><div class="c-lbl" id="lbl-days">يوم</div></div>
+        <div class="c-sep">·</div>
+        <div class="c-unit"><div class="c-num" id="cHours">0</div><div class="c-lbl" id="lbl-hours">ساعة</div></div>
+        <div class="c-sep">·</div>
+        <div class="c-unit"><div class="c-num" id="cMins">00</div><div class="c-lbl" id="lbl-mins">دقيقة</div></div>
       </div>
-    </aside>
-
-    <!-- ── Mobile Bottom Nav ── -->
-    <nav id="mobileNav">
-      <a href="#" class="mnav active" data-page="dashboard"><i class="fas fa-home"></i></a>
-      <a href="#" class="mnav" data-page="chat"><i class="fas fa-comments"></i><span class="badge" id="chatBadgeMob"></span></a>
-      <a href="#" class="mnav" data-page="memories"><i class="fas fa-images"></i></a>
-      <a href="#" class="mnav" data-page="calendar"><i class="fas fa-calendar-heart"></i></a>
-      <a href="#" class="mnav" data-page="settings"><i class="fas fa-sliders"></i></a>
-    </nav>
-
-    <!-- ── Main Content ── -->
-    <main id="mainContent">
-
-      <!-- ══════════════ DASHBOARD ══════════════ -->
-      <section id="dashboard" class="section active">
-        <div class="section-header">
-          <h2>Welcome back <span id="dashGreetName"></span> 💕</h2>
-        </div>
-
-        <!-- Relationship Counter -->
-        <div class="counter-card glass-card">
-          <div class="counter-title">
-            <i class="fas fa-heart-pulse"></i>
-            Together since
-            <button class="tiny-btn" id="editStartDate"><i class="fas fa-pen"></i></button>
-          </div>
-          <input type="date" id="startDateInput" class="hidden-date" />
-          <div class="counter-grid">
-            <div class="counter-unit"><span id="cYears">0</span><label>Years</label></div>
-            <div class="counter-unit"><span id="cMonths">0</span><label>Months</label></div>
-            <div class="counter-unit"><span id="cDays">0</span><label>Days</label></div>
-            <div class="counter-unit"><span id="cHours">0</span><label>Hours</label></div>
-            <div class="counter-unit"><span id="cMins">0</span><label>Minutes</label></div>
-          </div>
-        </div>
-
-        <!-- Partner Status -->
-        <div class="partner-card glass-card">
-          <img id="partnerAvatar" src="" alt="" class="partner-img" />
-          <div>
-            <p class="partner-name" id="partnerName"></p>
-            <span class="partner-status" id="partnerStatus"><i class="fas fa-circle"></i> Offline</span>
-          </div>
-          <div class="quick-actions">
-            <button class="qa-btn" id="qaChat" title="Open Chat"><i class="fas fa-message"></i></button>
-            <button class="qa-btn" id="qaCall" title="Video Call"><i class="fas fa-video"></i></button>
-          </div>
-        </div>
-
-        <!-- Love Quote -->
-        <div class="quote-card glass-card">
-          <i class="fas fa-quote-left quote-icon"></i>
-          <p id="quoteText" class="quote-text">Loading a love quote…</p>
-          <button class="tiny-btn" id="refreshQuote"><i class="fas fa-rotate"></i> New quote</button>
-        </div>
-
-        <!-- Quick Actions Grid -->
-        <div class="qa-grid">
-          <button class="qa-big glass-card" data-page="chat"><i class="fas fa-comments"></i><span>Chat</span></button>
-          <button class="qa-big glass-card" id="startCallBtn"><i class="fas fa-video"></i><span>Video Call</span></button>
-          <button class="qa-big glass-card" data-page="memories"><i class="fas fa-images"></i><span>Memories</span></button>
-          <button class="qa-big glass-card" data-page="calendar"><i class="fas fa-calendar-heart"></i><span>Calendar</span></button>
-        </div>
-      </section>
-
-      <!-- ══════════════ CHAT ══════════════ -->
-      <section id="chat" class="section">
-        <div class="chat-header">
-          <div class="chat-partner-info">
-            <img id="chatPartnerAvatar" src="" alt="" />
-            <div>
-              <p id="chatPartnerName"></p>
-              <span id="chatPartnerStatus" class="typing-status"></span>
-            </div>
-          </div>
-          <div class="chat-actions">
-            <button class="icon-btn" id="searchToggle" title="Search"><i class="fas fa-magnifying-glass"></i></button>
-            <button class="icon-btn" id="chatCallBtn" title="Video Call"><i class="fas fa-video"></i></button>
-          </div>
-        </div>
-
-        <!-- Search Bar -->
-        <div id="searchBar" class="search-bar hidden">
-          <input type="text" id="searchInput" placeholder="Search messages…" />
-          <button id="searchClose"><i class="fas fa-xmark"></i></button>
-        </div>
-
-        <!-- Messages -->
-        <div id="messagesContainer" class="messages-container">
-          <div class="messages-inner" id="messagesList"></div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="chat-input-area">
-          <button class="icon-btn" id="attachBtn" title="Image"><i class="fas fa-image"></i></button>
-          <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
-          <button class="icon-btn" id="voiceBtn" title="Voice message"><i class="fas fa-microphone"></i></button>
-          <div class="msg-input-wrap">
-            <textarea id="msgInput" placeholder="Write something sweet…" rows="1"></textarea>
-          </div>
-          <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-        </div>
-
-        <!-- Voice Recorder UI -->
-        <div id="voiceRecorder" class="voice-recorder hidden">
-          <div class="rec-indicator"><span class="rec-dot"></span> Recording…</div>
-          <div id="waveform" class="waveform">
-            <canvas id="waveCanvas" width="200" height="40"></canvas>
-          </div>
-          <span id="recTimer">0:00</span>
-          <button class="icon-btn red" id="stopRec"><i class="fas fa-stop"></i></button>
-          <button class="icon-btn" id="cancelRec"><i class="fas fa-xmark"></i></button>
-        </div>
-      </section>
-
-      <!-- ══════════════ MEMORIES ══════════════ -->
-      <section id="memories" class="section">
-        <div class="section-header">
-          <h2><i class="fas fa-images"></i> Our Memories</h2>
-          <button class="btn-primary sm" id="uploadMemBtn"><i class="fas fa-plus"></i> Add Memory</button>
-        </div>
-        <input type="file" id="memFileInput" accept="image/*" class="hidden" />
-
-        <div id="memoriesGrid" class="memories-grid"></div>
-      </section>
-
-      <!-- ══════════════ CALENDAR ══════════════ -->
-      <section id="calendar" class="section">
-        <div class="section-header">
-          <h2><i class="fas fa-calendar-heart"></i> Our Calendar</h2>
-          <button class="btn-primary sm" id="addEventBtn"><i class="fas fa-plus"></i> Add Event</button>
-        </div>
-        <div class="cal-nav">
-          <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
-          <span id="calMonthLabel"></span>
-          <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div id="calGrid" class="cal-grid"></div>
-        <div id="calEvents" class="cal-events"></div>
-      </section>
-
-      <!-- ══════════════ TO-DO ══════════════ -->
-      <section id="todo" class="section">
-        <div class="section-header">
-          <h2><i class="fas fa-list-check"></i> Our To-Do List</h2>
-        </div>
-        <div class="todo-input-row">
-          <input type="text" id="todoInput" placeholder="Add something to do together…" />
-          <button class="btn-primary" id="addTodoBtn"><i class="fas fa-plus"></i></button>
-        </div>
-        <ul id="todoList" class="todo-list"></ul>
-      </section>
-
-      <!-- ══════════════ SETTINGS ══════════════ -->
-      <section id="settings" class="section">
-        <div class="section-header">
-          <h2><i class="fas fa-sliders"></i> Settings</h2>
-        </div>
-
-        <div class="settings-group glass-card">
-          <h3>Profile</h3>
-          <div class="avatar-upload-row">
-            <img id="settingsAvatar" src="" alt="" class="settings-avatar" />
-            <button class="btn-secondary" id="changeAvatarBtn">Change Photo</button>
-            <input type="file" id="avatarFileInput" accept="image/*" class="hidden" />
-          </div>
-          <div class="form-group">
-            <label>Display Name</label>
-            <input type="text" id="displayNameInput" />
-          </div>
-          <button class="btn-primary" id="saveProfileBtn">Save Profile</button>
-        </div>
-
-        <div class="settings-group glass-card">
-          <h3>Appearance</h3>
-          <div class="theme-row">
-            <button class="theme-chip active" data-theme="dark">🌙 Dark</button>
-            <button class="theme-chip" data-theme="light">☀️ Light</button>
-            <button class="theme-chip" data-theme="rose">🌹 Rose</button>
-          </div>
-        </div>
-
-        <div class="settings-group glass-card">
-          <h3>Background Music</h3>
-          <div class="music-player">
-            <button class="icon-btn" id="musicToggle"><i class="fas fa-play"></i></button>
-            <input type="range" id="musicVolume" min="0" max="1" step="0.05" value="0.3" />
-            <span>🎵 Ambient Love</span>
-          </div>
-        </div>
-
-        <div class="settings-group glass-card">
-          <h3>Anniversary Reminder</h3>
-          <div class="form-group">
-            <label>Relationship Start Date</label>
-            <input type="date" id="anniversaryDate" />
-          </div>
-          <button class="btn-primary" id="saveAnniversary">Save</button>
-        </div>
-
-        <div class="settings-group glass-card">
-          <h3>Push Notifications</h3>
-          <button class="btn-secondary" id="enableNotifBtn"><i class="fas fa-bell"></i> Enable Notifications</button>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- ═══════════════════════════════════════ VIDEO CALL OVERLAY ═══ -->
-  <div id="videoCallOverlay" class="video-overlay hidden">
-    <div id="remoteVideoWrap" class="remote-video-wrap">
-      <video id="remoteVideo" autoplay playsinline></video>
-      <div id="callStatus" class="call-status">Calling…</div>
     </div>
-    <div id="localVideoWrap" class="local-video-wrap">
-      <video id="localVideo" autoplay playsinline muted></video>
-    </div>
-    <div class="call-timer-bar" id="callTimerBar">
-      <i class="fas fa-circle red-dot pulsing"></i>
-      <span id="callTimer">0:00</span>
-    </div>
-    <div class="call-controls">
-      <button class="call-ctrl" id="toggleMute" title="Mute"><i class="fas fa-microphone"></i></button>
-      <button class="call-ctrl" id="toggleCam" title="Camera"><i class="fas fa-video"></i></button>
-      <button class="call-ctrl" id="toggleScreen" title="Screen"><i class="fas fa-display"></i></button>
-      <button class="call-ctrl end" id="endCallBtn" title="End"><i class="fas fa-phone-slash"></i></button>
+    <div class="quote-box" id="quoteBox"><i class="fas fa-rotate-right quote-icon"></i><div class="quote-text" id="quoteText">...</div></div>
+    <div class="dash-grid">
+      <div class="dash-card" onclick="nav('chat')"><div class="dash-icon">💬</div><div class="dash-lbl" id="lbl-chat">دردشة</div></div>
+      <div class="dash-card" id="startCallBtn"><div class="dash-icon">📹</div><div class="dash-lbl" id="lbl-call">مكالمة</div></div>
+      <div class="dash-card" onclick="nav('memories')"><div class="dash-icon">🖼️</div><div class="dash-lbl" id="lbl-memories">ذكريات</div></div>
+      <div class="dash-card" onclick="nav('calendar')"><div class="dash-icon">📅</div><div class="dash-lbl" id="lbl-calendar">تقويم</div></div>
     </div>
   </div>
-
-  <!-- ═══════════════════════════════════════ INCOMING CALL MODAL ══ -->
-  <div id="incomingCallModal" class="modal hidden">
-    <div class="modal-glass">
-      <div class="incoming-avatar">
-        <img id="incomingAvatar" src="" alt="" />
-        <div class="ring-anim"></div>
+  <div class="page" id="page-chat">
+    <div class="chat-wrap">
+      <div class="chat-hdr">
+        <img class="partner-avatar" id="partnerAvatar" src="" alt=""/>
+        <div><div class="partner-name" id="partnerName"></div><div class="partner-status" id="partnerStatus">...</div></div>
+        <div class="chat-actions">
+          <button class="chat-icon-btn" id="searchToggleBtn"><i class="fas fa-search"></i></button>
+          <button class="chat-icon-btn" id="chatCallBtn"><i class="fas fa-video"></i></button>
+        </div>
       </div>
-      <p id="incomingName" class="incoming-name"></p>
-      <p class="incoming-sub">Incoming Video Call…</p>
-      <div class="incoming-btns">
-        <button class="call-ctrl end" id="rejectCallBtn"><i class="fas fa-phone-slash"></i></button>
-        <button class="call-ctrl accept" id="acceptCallBtn"><i class="fas fa-phone"></i></button>
+      <div class="search-bar" id="searchBar">
+        <input class="search-input" id="searchInput" placeholder="بحث في الرسائل…"/>
+        <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
       </div>
+      <div class="msgs-area" id="messagesList"></div>
+      <div class="typing-dots" id="typingDots"><div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div></div>
+      <div id="voiceRecorder">
+        <span id="recTimer">0:00</span>
+        <canvas id="waveCanvas"></canvas>
+        <button class="stop-rec" id="stopRec"><i class="fas fa-stop"></i></button>
+        <button class="cancel-rec" id="cancelRec"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="chat-input-bar">
+        <button class="voice-btn" id="voiceBtn"><i class="fas fa-microphone"></i></button>
+        <textarea class="chat-input" id="msgInput" rows="1" placeholder="اكتب رسالة…"></textarea>
+        <button class="attach-btn" id="attachBtn"><i class="fas fa-paperclip"></i></button>
+        <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+      <input type="file" id="imageFileInput" accept="image/*" style="display:none"/>
     </div>
   </div>
-
-  <!-- ═══════════════════════════════════════ IMAGE PREVIEW MODAL ══ -->
-  <div id="imagePreviewModal" class="modal hidden">
-    <div class="image-preview-wrap">
-      <img id="previewImg" src="" alt="" />
-      <button class="modal-close" id="closePreview"><i class="fas fa-xmark"></i></button>
-      <a class="download-btn" id="downloadImg" download><i class="fas fa-download"></i></a>
+  <div class="page" id="page-memories">
+    <div class="page-title" id="mem-title">ذكرياتنا ✨</div>
+    <div class="mem-grid" id="memoriesGrid"></div>
+    <label class="add-mem-btn"><i class="fas fa-plus"></i> <span id="add-mem-lbl">أضف ذكرى</span><input type="file" id="memFileInput" accept="image/*" style="display:none"/></label>
+  </div>
+  <div class="page" id="page-calendar">
+    <div class="page-title" id="cal-title">تقويمنا 📅</div>
+    <div class="cal-nav-row">
+      <button class="cal-arrow" id="calPrev"><i class="fas fa-chevron-right"></i></button>
+      <div class="cal-month-lbl" id="calMonthLbl"></div>
+      <button class="cal-arrow" id="calNext"><i class="fas fa-chevron-left"></i></button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div id="eventsList" style="margin-top:1rem"></div>
+    <div style="margin-top:1rem">
+      <input class="neo-input" id="eventInput" placeholder="عنوان الحدث…" style="margin-bottom:.5rem"/>
+      <input type="date" id="eventDateInput" class="neo-input" style="margin-bottom:.5rem"/>
+      <button class="neo-btn" id="addEventBtn"><span id="add-event-lbl">إضافة حدث</span></button>
     </div>
   </div>
-
-  <!-- ═══════════════════════════════════════ ADD MEMORY MODAL ══════ -->
-  <div id="addMemoryModal" class="modal hidden">
-    <div class="modal-glass">
-      <h3>Add a Memory 💕</h3>
-      <img id="memPreviewImg" src="" alt="" class="mem-preview" />
-      <div class="form-group">
-        <label>Note</label>
-        <textarea id="memNote" rows="3" placeholder="What's the story behind this moment?"></textarea>
-      </div>
-      <div class="form-group">
-        <label>Date</label>
-        <input type="date" id="memDate" />
-      </div>
-      <div class="modal-btns">
-        <button class="btn-secondary" id="cancelMemBtn">Cancel</button>
-        <button class="btn-primary" id="saveMemBtn">Save Memory</button>
+  <div class="page" id="page-settings">
+    <div class="page-title" id="settings-title">الإعدادات ⚙️</div>
+    <div class="settings-sec">
+      <div class="settings-sec-title" id="profile-lbl">الملف الشخصي</div>
+      <div class="profile-row">
+        <img class="settings-avatar" id="settingsAvatar" src="" alt=""/>
+        <div><div style="font-family:'Orbitron',monospace;font-size:.8rem" id="settingsName"></div>
+          <div style="font-size:.75rem;color:rgba(0,212,255,.5)" id="avatarHint">الصورة تحتاج Storage</div></div>
       </div>
     </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════ ADD EVENT MODAL ════════ -->
-  <div id="addEventModal" class="modal hidden">
-    <div class="modal-glass">
-      <h3>Add Event 📅</h3>
-      <div class="form-group">
-        <label>Event Name</label>
-        <input type="text" id="eventName" placeholder="e.g. Our Anniversary" />
-      </div>
-      <div class="form-group">
-        <label>Date</label>
-        <input type="date" id="eventDate" />
-      </div>
-      <div class="form-group">
-        <label>Color</label>
-        <input type="color" id="eventColor" value="#ff4d8d" />
-      </div>
-      <div class="modal-btns">
-        <button class="btn-secondary" id="cancelEventBtn">Cancel</button>
-        <button class="btn-primary" id="saveEventBtn">Save Event</button>
+    <div class="settings-sec">
+      <div class="settings-sec-title" id="todo-title-lbl">قائمة المهام ✅</div>
+      <div id="todoList"></div>
+      <input class="neo-input" id="todoInput" placeholder="أضف مهمة…" style="margin-top:.7rem;margin-bottom:.5rem"/>
+      <button class="neo-btn" id="addTodoBtn"><span id="add-todo-lbl">إضافة</span></button>
+    </div>
+    <div class="settings-sec">
+      <div class="settings-sec-title" id="theme-lbl">المظهر</div>
+      <div class="theme-btns" id="themeBtns">
+        <button class="theme-btn active" data-theme="dark">🌌 داكن</button>
+        <button class="theme-btn" data-theme="rose">🌹 وردي</button>
+        <button class="theme-btn" data-theme="cyber">⚡ سايبر</button>
       </div>
     </div>
+    <div class="settings-sec">
+      <div class="settings-sec-title" id="lang-lbl">اللغة</div>
+      <div class="theme-btns">
+        <button class="theme-btn active" data-lang-btn="ar" id="btnAr">🇸🇦 عربي</button>
+        <button class="theme-btn" data-lang-btn="en" id="btnEn">🇬🇧 English</button>
+      </div>
+    </div>
+    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt" style="margin-inline-end:.5rem"></i><span id="logout-lbl">تسجيل الخروج</span></button>
   </div>
-
-  <!-- ═══════════════════════════════════════ CONTEXT MENU ════════════ -->
-  <div id="contextMenu" class="context-menu hidden">
-    <button id="ctxEdit"><i class="fas fa-pen"></i> Edit</button>
-    <button id="ctxDelete"><i class="fas fa-trash"></i> Delete</button>
-    <button id="ctxReact"><i class="fas fa-face-smile"></i> React</button>
+</div>
+<div id="videoCallOverlay" class="hidden">
+  <div id="callStatus"></div>
+  <video id="remoteVideo" autoplay playsinline></video>
+  <video id="localVideo" autoplay muted playsinline></video>
+  <div class="call-btns">
+    <button class="call-btn ctrl-btn" id="toggleMute"><i class="fas fa-microphone"></i></button>
+    <button class="call-btn ctrl-btn" id="toggleCam"><i class="fas fa-video"></i></button>
+    <button class="call-btn ctrl-btn" id="toggleScreen"><i class="fas fa-display"></i></button>
+    <button class="call-btn end-btn" id="endCallBtn"><i class="fas fa-phone-slash"></i></button>
   </div>
-  <div id="emojiPicker" class="emoji-picker hidden">❤️ 😍 😘 🥰 😂 😭 🔥 💯 🌹 ✨</div>
-
-  <!-- ═══════════════════════════════════════ TOAST ═══════════════════ -->
-  <div id="toast" class="toast hidden"></div>
-
-  <!-- ═══════════════════════════════════════ FIREBASE ══════════════════ -->
-  <script type="module" src="js/firebase.js"></script>
-  <script type="module" src="js/app.js"></script>
+</div>
+<div id="callTimerBar" class="hidden">⏱ <span id="callTimer">0:00</span></div>
+<div id="incomingCallModal" class="hidden">
+  <div class="incoming-card">
+    <img id="incomingAvatar" class="incoming-avatar" src="" alt=""/>
+    <div class="incoming-name" id="incomingName"></div>
+    <div class="incoming-lbl" id="incoming-lbl">مكالمة فيديو واردة</div>
+    <div class="inc-btns">
+      <button class="accept-btn" id="acceptCallBtn"><i class="fas fa-phone"></i> <span id="accept-lbl">قبول</span></button>
+      <button class="reject-btn" id="rejectCallBtn"><i class="fas fa-phone-slash"></i> <span id="reject-lbl">رفض</span></button>
+    </div>
+  </div>
+</div>
+<div id="addMemModal" class="hidden">
+  <div class="modal-box">
+    <div class="modal-title" id="add-mem-title">إضافة ذكرى</div>
+    <img id="memPreviewImg" src="" alt=""/>
+    <input class="neo-input" id="memNote" placeholder="أضف ملاحظة…" style="margin-bottom:.5rem"/>
+    <input type="date" id="memDate" class="neo-input"/>
+    <div class="modal-btns">
+      <button class="modal-cancel" id="cancelMemBtn">إلغاء</button>
+      <button class="modal-save" id="saveMemBtn"><span id="save-lbl">حفظ الذكرى 💫</span></button>
+    </div>
+  </div>
+</div>
+<div id="imgPreviewModal" class="hidden">
+  <button class="preview-close" id="closePreview"><i class="fas fa-times"></i></button>
+  <img id="previewImg" src="" alt=""/>
+</div>
+<div id="contextMenu" class="hidden">
+  <div class="ctx-item" id="ctxEdit"><i class="fas fa-pen"></i> <span id="ctx-edit-lbl">تعديل</span></div>
+  <div class="ctx-item" id="ctxDelete"><i class="fas fa-trash"></i> <span id="ctx-del-lbl">حذف</span></div>
+  <div class="ctx-item" id="ctxReact"><i class="fas fa-smile"></i> <span id="ctx-react-lbl">تفاعل</span></div>
+</div>
+<div id="emojiPicker" class="hidden"></div>
+<!-- ══ SCRIPTS ══ -->
+<script>
+(function(){
+  const canvas=document.getElementById('bg-canvas'),ctx=canvas.getContext('2d');
+  let W,H,pts=[];const COLS=['#00d4ff','#8b00ff','#ff006e','#ffd700'];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  function Pt(){this.reset=()=>{this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.5+.3;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.a=Math.random()*.5+.1;this.col=COLS[Math.floor(Math.random()*COLS.length)];this.life=0;this.max=200+Math.random()*300;};this.reset();this.life=Math.random()*this.max;}
+  let mx=window.innerWidth/2,my=window.innerHeight/2;
+  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  window.addEventListener('resize',resize);resize();
+  pts=Array.from({length:100},()=>new Pt());
+  (function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{p.life++;if(p.life>p.max){p.reset();return;}
+      const lr=p.life/p.max,fa=p.a*(lr<.1?lr*10:lr>.9?(1-lr)*10:1);
+      const dx=mx-p.x,dy=my-p.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<180){p.vx+=dx/d*.003;p.vy+=dy/d*.003;}p.vx*=.99;p.vy*=.99;p.x+=p.vx;p.y+=p.vy;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.col;ctx.globalAlpha=fa;ctx.fill();});
+    ctx.globalAlpha=1;
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<90){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(0,212,255,${(1-d/90)*.07})`;ctx.lineWidth=.5;ctx.stroke();}}
+    requestAnimationFrame(draw);})();
+})();
+setTimeout(()=>{const l=document.getElementById('loadScreen');l.style.opacity='0';setTimeout(()=>l.style.display='none',500);},1700);
+let _toastT;
+window.showToast=function(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_toastT);_toastT=setTimeout(()=>t.classList.remove('show'),3000);};
+const STRINGS={
+  ar:{loginSub:'عالمنا الخاص 🌌',lblWho:'من أنت؟',lblCode:'الكود السري',btnEnter:'ادخل عالمنا',placeholder:'أدخل الكود السري…',greet:'أهلاً بعودتك',togetherSince:'معاً منذ',setDate:'تعيين التاريخ',years:'سنة',months:'شهر',days:'يوم',hours:'ساعة',mins:'دقيقة',chatLbl:'دردشة',callLbl:'مكالمة',memoriesLbl:'ذكريات',calendarLbl:'تقويم',memTitle:'ذكرياتنا ✨',calTitle:'تقويمنا 📅',settingsTitle:'الإعدادات ⚙️',profileLbl:'الملف الشخصي',todoTitle:'قائمة المهام ✅',themeLbl:'المظهر',langLbl:'اللغة',logoutLbl:'تسجيل الخروج',addMemLbl:'أضف ذكرى',addEventLbl:'إضافة حدث',addTodoLbl:'إضافة',incomingLbl:'مكالمة فيديو واردة',acceptLbl:'قبول',rejectLbl:'رفض',addMemTitle:'إضافة ذكرى',saveLbl:'حفظ الذكرى 💫',ctxEdit:'تعديل',ctxDel:'حذف',ctxReact:'تفاعل',msgPlaceholder:'اكتب رسالة…',searchPlaceholder:'بحث في الرسائل…',errChoose:'اختر من أنت أولاً',errCode:'كود خاطئ 💔',online:'متصل الآن ✨',offline:'غير متصل',typing:'يكتب…',avatarHint:'الصورة تحتاج Storage',calDays:['أحد','اثن','ثلا','أرب','خمي','جمع','سبت'],todoPlaceholder:'أضف مهمة…',eventPlaceholder:'عنوان الحدث…',memNotePlaceholder:'أضف ملاحظة…',themeLabels:{dark:'🌌 داكن',rose:'🌹 وردي',cyber:'⚡ سايبر'},calLocale:'ar-EG'},
+  en:{loginSub:'Your Private Universe 🌌',lblWho:'Who are you?',lblCode:'Secret Code',btnEnter:'Enter Our World',placeholder:'Enter your secret code…',greet:'Welcome back',togetherSince:'Together Since',setDate:'Set Date',years:'Years',months:'Months',days:'Days',hours:'Hours',mins:'Mins',chatLbl:'Chat',callLbl:'Video Call',memoriesLbl:'Memories',calendarLbl:'Calendar',memTitle:'Our Memories ✨',calTitle:'Our Calendar 📅',settingsTitle:'Settings ⚙️',profileLbl:'Profile',todoTitle:'To-Do List ✅',themeLbl:'Theme',langLbl:'Language',logoutLbl:'Logout',addMemLbl:'Add Memory',addEventLbl:'Add Event',addTodoLbl:'Add',incomingLbl:'Incoming Video Call',acceptLbl:'Accept',rejectLbl:'Reject',addMemTitle:'Add Memory',saveLbl:'Save Memory 💫',ctxEdit:'Edit',ctxDel:'Delete',ctxReact:'React',msgPlaceholder:'Type a message…',searchPlaceholder:'Search messages…',errChoose:'Choose who you are first',errCode:'Wrong code 💔',online:'Online now ✨',offline:'Offline',typing:'typing…',avatarHint:'Avatar needs Storage upgrade',calDays:['Su','Mo','Tu','We','Th','Fr','Sa'],todoPlaceholder:'Add a task…',eventPlaceholder:'Event title…',memNotePlaceholder:'Add a note…',themeLabels:{dark:'🌌 Dark',rose:'🌹 Rose',cyber:'⚡ Cyber'},calLocale:'en-US'}
+};
+window.currentLang='ar';
+window.applyLang=function(lang){
+  window.currentLang=lang;const s=STRINGS[lang];
+  document.documentElement.lang=lang;document.body.setAttribute('data-lang',lang);
+  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  const set=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val;};
+  const setP=(id,val)=>{const e=document.getElementById(id);if(e)e.placeholder=val;};
+  set('loginSub',s.loginSub);set('lbl-who',s.lblWho);set('lbl-code',s.lblCode);set('btn-enter',s.btnEnter);setP('codeInput',s.placeholder);
+  set('greetLbl',s.greet);set('togetherLbl',s.togetherSince);set('setDateLbl',s.setDate);
+  set('lbl-years',s.years);set('lbl-months',s.months);set('lbl-days',s.days);set('lbl-hours',s.hours);set('lbl-mins',s.mins);
+  set('lbl-chat',s.chatLbl);set('lbl-call',s.callLbl);set('lbl-memories',s.memoriesLbl);set('lbl-calendar',s.calendarLbl);
+  set('mem-title',s.memTitle);set('cal-title',s.calTitle);set('settings-title',s.settingsTitle);
+  set('profile-lbl',s.profileLbl);set('todo-title-lbl',s.todoTitle);set('theme-lbl',s.themeLbl);set('lang-lbl',s.langLbl);
+  set('logout-lbl',s.logoutLbl);set('add-mem-lbl',s.addMemLbl);set('add-event-lbl',s.addEventLbl);set('add-todo-lbl',s.addTodoLbl);
+  set('incoming-lbl',s.incomingLbl);set('accept-lbl',s.acceptLbl);set('reject-lbl',s.rejectLbl);
+  set('add-mem-title',s.addMemTitle);set('save-lbl',s.saveLbl);
+  set('ctx-edit-lbl',s.ctxEdit);set('ctx-del-lbl',s.ctxDel);set('ctx-react-lbl',s.ctxReact);
+  set('avatarHint',s.avatarHint);
+  setP('msgInput',s.msgPlaceholder);setP('searchInput',s.searchPlaceholder);
+  setP('todoInput',s.todoPlaceholder);setP('eventInput',s.eventPlaceholder);setP('memNote',s.memNotePlaceholder);
+  document.querySelectorAll('.theme-btn[data-theme]').forEach(b=>{b.textContent=s.themeLabels[b.dataset.theme]||b.textContent;});
+  document.getElementById('btnAr').classList.toggle('active',lang==='ar');
+  document.getElementById('btnEn').classList.toggle('active',lang==='en');
+  document.getElementById('userSelect').querySelector('option[value=""]').textContent=lang==='ar'?'— اختر —':'— choose —';
+  localStorage.setItem('jrf_lang',lang);
+  if(window._renderCalendar)window._renderCalendar();
+};
+document.getElementById('langToggle').addEventListener('click',()=>applyLang(currentLang==='ar'?'en':'ar'));
+document.getElementById('btnAr').addEventListener('click',()=>applyLang('ar'));
+document.getElementById('btnEn').addEventListener('click',()=>applyLang('en'));
+applyLang(localStorage.getItem('jrf_lang')||'ar');
+</script>
+<script type="module">
+import{auth,db,storage,signInAnonymously,signOut,doc,setDoc,getDoc,updateDoc,onSnapshot,addDoc,deleteDoc,collection,query,orderBy,getDocs,serverTimestamp,ref,uploadBytes,getDownloadURL}from'./firebase.js';
+import{initChat}from'./chat.js';
+import{initVideoCall}from'./video-call.js';
+const USERS={user1:{name:'Rody 💙',code:'rody2024',avatar:'https://api.dicebear.com/8.x/lorelei/svg?seed=rody&backgroundColor=b6e3ff',partnerId:'user2'},user2:{name:'My Love 💖',code:'love2024',avatar:'https://api.dicebear.com/8.x/lorelei/svg?seed=love&backgroundColor=ffc0cb',partnerId:'user1'}};
+const QAR=['في أحضانك وجدتُ وطني 💙','أنتَ قصتي المفضلة في كل الحكايات','أختارك.. مراراً وتكراراً كل يوم','معك يصبح العادي استثنائياً 🌹','أنتَ سبب ابتسامتي حتى في أصعب الأيام','قلبي وجد بيته حين وجدك','أحبك أكثر مما تستطيع الكلمات أن تصف','كل لحظة معك هي كنز أحمله للأبد'];
+const QEN=['In your arms I found my home 💙','You are my favorite story of all','I choose you, over and over every day','With you ordinary becomes extraordinary 🌹','You make me smile on the hardest days','My heart found its home in you','I love you more than words can say','Every moment with you is a treasure'];
+let myId=null,partnerId=null,myData=null,partnerData=null;
+let calendarDate=new Date(),calEvents=[],counterInt=null,pendingMemFile=null;
+// Eye btn
+document.getElementById('eyeBtn').addEventListener('click',()=>{const i=document.getElementById('codeInput');i.type=i.type==='password'?'text':'password';document.getElementById('eyeBtn').querySelector('i').className=i.type==='password'?'fas fa-eye':'fas fa-eye-slash';});
+document.getElementById('loginBtn').addEventListener('click',handleLogin);
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')handleLogin();});
+async function handleLogin(){
+  const sel=document.getElementById('userSelect').value,code=document.getElementById('codeInput').value.trim();
+  const err=document.getElementById('loginError'),s=STRINGS[currentLang];
+  if(!sel){err.textContent=s.errChoose;return;}
+  if(!USERS[sel]||USERS[sel].code!==code){err.textContent=s.errCode;return;}
+  err.textContent='';document.getElementById('loginBtn').innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+  try{
+    await signInAnonymously(auth);myId=sel;partnerId=USERS[sel].partnerId;myData=USERS[sel];partnerData=USERS[partnerId];
+    const lp=document.getElementById('loginPage');lp.style.transition='opacity .5s';lp.style.opacity='0';setTimeout(()=>lp.style.display='none',500);
+    initApp();
+  }catch(e){document.getElementById('loginError').textContent='خطأ في الاتصال بـ Firebase';document.getElementById('loginBtn').innerHTML='<span id="btn-enter">'+STRINGS[currentLang].btnEnter+'</span>';}
+}
+function initApp(){
+  document.getElementById('appShell').style.display='block';
+  document.getElementById('myAvatar').src=myData.avatar;document.getElementById('myNameLbl').textContent=myData.name;
+  document.getElementById('partnerAvatar').src=partnerData.avatar;document.getElementById('partnerName').textContent=partnerData.name;
+  document.getElementById('settingsAvatar').src=myData.avatar;document.getElementById('settingsName').textContent=myData.name;
+  setDoc(doc(db,'users',myId),{name:myData.name,avatar:myData.avatar,online:true,lastSeen:serverTimestamp()},{merge:true});
+  window.addEventListener('beforeunload',()=>setDoc(doc(db,'users',myId),{online:false,lastSeen:serverTimestamp()},{merge:true}));
+  onSnapshot(doc(db,'users',partnerId),snap=>{const d=snap.data()||{},s=STRINGS[currentLang],el=document.getElementById('partnerStatus');if(d.online){el.textContent=s.online;el.style.color='#00ff88';}else{el.textContent=s.offline;el.style.color='';}});
+  loadQuote();document.getElementById('quoteBox').addEventListener('click',loadQuote);
+  loadCounter();
+  document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.page)));
+  loadCalEvents();
+  document.getElementById('calPrev').addEventListener('click',()=>{calendarDate.setMonth(calendarDate.getMonth()-1);renderCalendar();});
+  document.getElementById('calNext').addEventListener('click',()=>{calendarDate.setMonth(calendarDate.getMonth()+1);renderCalendar();});
+  document.getElementById('addEventBtn').addEventListener('click',addEvent);
+  listenTodos();
+  document.getElementById('addTodoBtn').addEventListener('click',addTodo);
+  document.getElementById('todoInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTodo();});
+  listenMemories();
+  document.getElementById('memFileInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;pendingMemFile=f;const rd=new FileReader();rd.onload=ev=>{const i=document.getElementById('memPreviewImg');i.src=ev.target.result;i.style.display='block';};rd.readAsDataURL(f);document.getElementById('memDate').value=new Date().toISOString().slice(0,10);document.getElementById('addMemModal').classList.remove('hidden');});
+  document.getElementById('saveMemBtn').addEventListener('click',saveMemory);
+  document.getElementById('cancelMemBtn').addEventListener('click',()=>{document.getElementById('addMemModal').classList.add('hidden');pendingMemFile=null;});
+  document.querySelectorAll('.theme-btn[data-theme]').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.theme-btn[data-theme]').forEach(x=>x.classList.remove('active'));b.classList.add('active');applyThemeStyle(b.dataset.theme);});});
+  document.getElementById('logoutBtn').addEventListener('click',async()=>{await setDoc(doc(db,'users',myId),{online:false},{merge:true});await signOut(auth);location.reload();});
+  document.getElementById('closePreview').addEventListener('click',()=>document.getElementById('imgPreviewModal').classList.add('hidden'));
+  document.getElementById('imgPreviewModal').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.add('hidden');});
+  document.getElementById('searchToggleBtn').addEventListener('click',()=>document.getElementById('searchBar').classList.toggle('show'));
+  document.getElementById('searchClose').addEventListener('click',()=>{document.getElementById('searchBar').classList.remove('show');document.getElementById('searchInput').value='';});
+  initVideoCall(db,myId,partnerId,USERS,serverTimestamp);
+  initChat(db,storage,myId,partnerId,USERS,serverTimestamp);
+  const savedTheme=localStorage.getItem('jrf_theme')||'dark';
+  document.body.setAttribute('data-theme',savedTheme);
+  document.querySelectorAll('.theme-btn[data-theme]').forEach(b=>b.classList.toggle('active',b.dataset.theme===savedTheme));
+  nav(localStorage.getItem('jrf_page')||'dashboard');
+}
+window.nav=function(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+page)?.classList.add('active');
+  document.querySelector(`.nav-btn[data-page="${page}"]`)?.classList.add('active');
+  localStorage.setItem('jrf_page',page);
+  if(page==='calendar')renderCalendar();
+};
+function loadQuote(){const q=currentLang==='ar'?QAR:QEN;document.getElementById('quoteText').textContent='"'+q[Math.floor(Math.random()*q.length)]+'"';}
+function loadCounter(){
+  const saved=localStorage.getItem('jrf_startDate');if(saved)startCounter(new Date(saved));
+  onSnapshot(doc(db,'config','startDate'),snap=>{const d=snap.data()?.date;if(d){localStorage.setItem('jrf_startDate',d);startCounter(new Date(d));}});
+  document.getElementById('editDateBtn').addEventListener('click',()=>{const i=document.getElementById('startDateInput');i.style.display=!i.style.display||i.style.display==='none'?'block':'none';if(i.style.display==='block'){i.value=localStorage.getItem('jrf_startDate')||'';i.focus();}});
+  document.getElementById('startDateInput').addEventListener('change',async e=>{await setDoc(doc(db,'config','startDate'),{date:e.target.value});document.getElementById('startDateInput').style.display='none';});
+}
+function startCounter(start){
+  if(counterInt)clearInterval(counterInt);
+  function tick(){const now=new Date(),diff=now-start;if(diff<0)return;const s=new Date(start),n=new Date(now);let y=n.getFullYear()-s.getFullYear(),mo=n.getMonth()-s.getMonth();if(mo<0){y--;mo+=12;}const base=new Date(s.getFullYear()+y,s.getMonth()+mo,s.getDate());const rd=Math.floor((n-base)/86400000);document.getElementById('cYears').textContent=y;document.getElementById('cMonths').textContent=mo;document.getElementById('cDays').textContent=rd;document.getElementById('cHours').textContent=n.getHours();document.getElementById('cMins').textContent=String(n.getMinutes()).padStart(2,'0');}
+  tick();counterInt=setInterval(tick,1000);
+}
+function loadCalEvents(){onSnapshot(collection(db,'calendarEvents'),snap=>{calEvents=snap.docs.map(d=>({id:d.id,...d.data()}));renderCalendar();renderEvList();});}
+window._renderCalendar=renderCalendar;
+function renderCalendar(){
+  const y=calendarDate.getFullYear(),m=calendarDate.getMonth();
+  const s=STRINGS[currentLang];
+  document.getElementById('calMonthLbl').textContent=new Date(y,m,1).toLocaleDateString(s.calLocale,{month:'long',year:'numeric'});
+  const first=new Date(y,m,1).getDay(),total=new Date(y,m+1,0).getDate(),today=new Date();
+  let html=s.calDays.map(d=>`<div class="cal-day-hdr">${d}</div>`).join('');
+  for(let i=0;i<first;i++)html+='<div></div>';
+  for(let d=1;d<=total;d++){const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,isT=d===today.getDate()&&m===today.getMonth()&&y===today.getFullYear(),hasE=calEvents.some(e=>e.date===ds);html+=`<div class="cal-day${isT?' today':''}${hasE?' has-event':''}" onclick="selectDay('${ds}')">${d}</div>`;}
+  document.getElementById('calGrid').innerHTML=html;
+}
+window.selectDay=function(date){document.getElementById('eventDateInput').value=date;showToast('📅 '+date);};
+function renderEvList(){
+  const el=document.getElementById('eventsList');
+  el.innerHTML=calEvents.map(e=>`<div class="event-item"><div class="event-dot" style="background:var(--neon-pink)"></div><div class="event-name">${e.name||''}</div><div class="event-date">${e.date||''}</div><button class="event-del" onclick="delEv('${e.id}')"><i class="fas fa-times"></i></button></div>`).join('');
+}
+async function addEvent(){
+  const t=document.getElementById('eventInput').value.trim(),d=document.getElementById('eventDateInput').value||new Date().toISOString().slice(0,10);
+  if(!t)return showToast(currentLang==='ar'?'اكتب عنوان الحدث':'Enter event title');
+  await addDoc(collection(db,'calendarEvents'),{name:t,date:d,createdBy:myId,createdAt:serverTimestamp()});
+  document.getElementById('eventInput').value='';showToast(currentLang==='ar'?'تم إضافة الحدث ✨':'Event added ✨');
+}
+window.delEv=async id=>await deleteDoc(doc(db,'calendarEvents',id));
+function listenTodos(){
+  onSnapshot(query(collection(db,'todos'),orderBy('createdAt','asc')),snap=>{
+    const todos=snap.docs.map(d=>({id:d.id,...d.data()}));
+    document.getElementById('todoList').innerHTML=todos.map(t=>`<div class="todo-item${t.done?' done':''}"><div class="todo-check" onclick="toggleTodo('${t.id}',${!t.done})">${t.done?'<i class="fas fa-check" style="font-size:.6rem;color:#fff"></i>':''}</div><div class="todo-txt">${t.text}</div><button class="todo-del" onclick="delTodo('${t.id}')"><i class="fas fa-times"></i></button></div>`).join('')||`<div style="color:rgba(255,255,255,.2);font-size:.8rem;padding:.5rem">${currentLang==='ar'?'لا مهام 🎉':'Nothing to do 🎉'}</div>`;
+  });
+}
+async function addTodo(){const i=document.getElementById('todoInput'),t=i.value.trim();if(!t)return;await addDoc(collection(db,'todos'),{text:t,done:false,createdBy:myId,createdAt:serverTimestamp()});i.value='';}
+window.toggleTodo=async(id,done)=>await updateDoc(doc(db,'todos',id),{done});
+window.delTodo=async id=>await deleteDoc(doc(db,'todos',id));
+function listenMemories(){
+  onSnapshot(query(collection(db,'memories'),orderBy('createdAt','desc')),snap=>{
+    const mems=snap.docs.map(d=>({id:d.id,...d.data()}));
+    const grid=document.getElementById('memoriesGrid');
+    grid.innerHTML=mems.length?mems.map(m=>`<div class="mem-card" onclick="openImg('${m.url||''}')"><img src="${m.url||''}" alt="" loading="lazy" onerror="this.style.background='#1a0030'"/><div class="mem-overlay"><div class="mem-note">${m.note||''}</div><div class="mem-date">${m.date||''}</div></div></div>`).join(''):`<div style="grid-column:span 2;text-align:center;color:rgba(255,255,255,.2);padding:2rem;font-size:.85rem">${currentLang==='ar'?'أضف أول ذكرى 💫':'Add your first memory 💫'}</div>`;
+  });
+}
+async function saveMemory(){
+  if(!pendingMemFile)return;
+  if(!storage){showToast(currentLang==='ar'?'الرفع يحتاج Storage 💙':'Storage not set up 💙');return;}
+  try{
+    showToast(currentLang==='ar'?'جاري الرفع…':'Uploading…');
+    const r=ref(storage,`memories/${Date.now()}_${pendingMemFile.name}`);
+    await uploadBytes(r,pendingMemFile);const url=await getDownloadURL(r);
+    await addDoc(collection(db,'memories'),{url,note:document.getElementById('memNote').value,date:document.getElementById('memDate').value,createdBy:myId,createdAt:serverTimestamp()});
+    document.getElementById('addMemModal').classList.add('hidden');document.getElementById('memNote').value='';pendingMemFile=null;
+    showToast(currentLang==='ar'?'تم حفظ الذكرى ✨':'Memory saved ✨');
+  }catch(e){showToast(currentLang==='ar'?'فشل الرفع':'Upload failed');}
+}
+window.openImg=function(src){if(!src)return;document.getElementById('previewImg').src=src;document.getElementById('imgPreviewModal').classList.remove('hidden');};
+function applyThemeStyle(t){document.body.setAttribute('data-theme',t);localStorage.setItem('jrf_theme',t);showToast(currentLang==='ar'?'تم تغيير المظهر ✨':'Theme changed ✨');}
+const savedTheme=localStorage.getItem('jrf_theme')||'dark';document.body.setAttribute('data-theme',savedTheme);
+</script>
 </body>
 </html>
