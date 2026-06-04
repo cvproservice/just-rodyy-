@@ -1,1720 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Just Rodyy Forever 💙</title>
-<meta name="theme-color" content="#0a0015"/>
-<link rel="manifest" href="manifest.json"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Rajdhani:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-<style>
-:root {
-  --void: #00000a;
-  --deep: #0a0015;
-  --cosmos: #0d001f;
-  --neon-blue: #00d4ff;
-  --neon-pink: #ff006e;
-  --neon-purple: #8b00ff;
-  --neon-gold: #ffd700;
-  --glass: rgba(255,255,255,0.04);
-  --glass-border: rgba(255,255,255,0.08);
-  --glow-blue: 0 0 20px rgba(0,212,255,0.5), 0 0 60px rgba(0,212,255,0.2);
-  --glow-pink: 0 0 20px rgba(255,0,110,0.5), 0 0 60px rgba(255,0,110,0.2);
-  --glow-purple: 0 0 20px rgba(139,0,255,0.5), 0 0 60px rgba(139,0,255,0.2);
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Just Rodyy Forever — A private space for two 💕" />
+  <title>Just Rodyy Forever 💕</title>
 
-*{margin:0;padding:0;box-sizing:border-box;}
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png" />
 
-html,body{
-  width:100%;height:100%;
-  overflow-x:hidden;
-  background:var(--void);
-  color:#fff;
-  font-family:'Rajdhani',sans-serif;
-  cursor:none;
-}
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-/* ── CUSTOM CURSOR ── */
-#cursor{
-  position:fixed;width:12px;height:12px;
-  background:var(--neon-blue);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:transform 0.1s,background 0.3s;
-  box-shadow:var(--glow-blue);
-}
-#cursor-ring{
-  position:fixed;width:40px;height:40px;
-  border:1px solid rgba(0,212,255,0.5);border-radius:50%;
-  pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:transform 0.15s,width 0.3s,height 0.3s,opacity 0.3s;
-}
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-/* ── CANVAS ── */
-#bg-canvas{
-  position:fixed;top:0;left:0;
-  width:100%;height:100%;
-  z-index:0;
-}
-
-/* ── LOGIN OVERLAY ── */
-#loginOverlay{
-  position:fixed;inset:0;z-index:100;
-  display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at center, #1a0030 0%, #000008 70%);
-}
-
-.login-universe{
-  position:relative;
-  width:min(420px,90vw);
-  text-align:center;
-}
-
-.login-title{
-  font-family:'Cinzel Decorative',serif;
-  font-size:clamp(1.4rem,4vw,2.2rem);
-  background:linear-gradient(135deg,var(--neon-blue),var(--neon-pink),var(--neon-purple));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:0.3rem;
-  animation:titleGlow 3s ease-in-out infinite alternate;
-}
-@keyframes titleGlow{
-  from{filter:drop-shadow(0 0 8px rgba(0,212,255,0.6));}
-  to{filter:drop-shadow(0 0 20px rgba(255,0,110,0.8));}
-}
-
-.login-sub{
-  font-family:'Rajdhani',sans-serif;
-  color:rgba(255,255,255,0.4);
-  letter-spacing:0.3em;
-  font-size:0.75rem;
-  text-transform:uppercase;
-  margin-bottom:3rem;
-}
-
-/* Heart orb */
-.heart-orb{
-  width:90px;height:90px;
-  margin:0 auto 2.5rem;
-  position:relative;
-}
-.heart-orb svg{
-  width:100%;height:100%;
-  animation:heartbeat 1.5s ease-in-out infinite;
-  filter:drop-shadow(0 0 15px var(--neon-pink)) drop-shadow(0 0 30px rgba(255,0,110,0.4));
-}
-@keyframes heartbeat{
-  0%,100%{transform:scale(1);}
-  14%{transform:scale(1.15);}
-  28%{transform:scale(1);}
-  42%{transform:scale(1.08);}
-  56%{transform:scale(1);}
-}
-.heart-orb::after{
-  content:'';position:absolute;inset:-20px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(255,0,110,0.15) 0%,transparent 70%);
-  animation:orb-pulse 2s ease-in-out infinite;
-}
-@keyframes orb-pulse{
-  0%,100%{transform:scale(1);opacity:0.5;}
-  50%{transform:scale(1.3);opacity:1;}
-}
-
-.glass-panel{
-  background:rgba(10,0,21,0.7);
-  border:1px solid rgba(0,212,255,0.15);
-  border-radius:16px;
-  padding:2.5rem;
-  backdrop-filter:blur(20px);
-  box-shadow:0 0 40px rgba(0,212,255,0.05),inset 0 0 40px rgba(139,0,255,0.03);
-  position:relative;
-  overflow:hidden;
-}
-.glass-panel::before{
-  content:'';position:absolute;top:0;left:-100%;
-  width:100%;height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);
-  animation:scan 3s linear infinite;
-}
-@keyframes scan{to{left:100%;}}
-
-.field-label{
-  font-family:'Orbitron',monospace;
-  font-size:0.65rem;letter-spacing:0.2em;
-  color:rgba(0,212,255,0.6);
-  text-transform:uppercase;
-  margin-bottom:0.5rem;
-  text-align:left;
-}
-
-.neo-select,.neo-input{
-  width:100%;
-  background:rgba(0,212,255,0.05);
-  border:1px solid rgba(0,212,255,0.2);
-  border-radius:8px;
-  color:#fff;
-  padding:0.9rem 1rem;
-  font-family:'Rajdhani',sans-serif;
-  font-size:1rem;
-  outline:none;
-  transition:border-color 0.3s,box-shadow 0.3s,background 0.3s;
-  margin-bottom:1.2rem;
-  appearance:none;
-}
-.neo-select:focus,.neo-input:focus{
-  border-color:var(--neon-blue);
-  box-shadow:0 0 0 2px rgba(0,212,255,0.1),var(--glow-blue);
-  background:rgba(0,212,255,0.08);
-}
-.neo-select option{background:#0a0015;}
-
-.neo-input::placeholder{color:rgba(255,255,255,0.2);}
-
-.input-wrap{position:relative;margin-bottom:1.2rem;}
-.input-wrap .neo-input{margin-bottom:0;}
-.eye-btn{
-  position:absolute;right:1rem;top:50%;transform:translateY(-50%);
-  background:none;border:none;color:rgba(0,212,255,0.5);
-  cursor:pointer;font-size:0.9rem;
-  transition:color 0.3s;
-}
-.eye-btn:hover{color:var(--neon-blue);}
-
-.neo-btn{
-  width:100%;padding:1rem;
-  background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));
-  border:none;border-radius:8px;
-  color:#fff;font-family:'Orbitron',monospace;
-  font-size:0.85rem;letter-spacing:0.15em;
-  text-transform:uppercase;
-  cursor:pointer;
-  position:relative;overflow:hidden;
-  transition:transform 0.2s,box-shadow 0.3s;
-  margin-top:0.8rem;
-}
-.neo-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 30px rgba(0,212,255,0.4),0 0 60px rgba(139,0,255,0.2);
-}
-.neo-btn::before{
-  content:'';position:absolute;top:0;left:-100%;
-  width:100%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
-  transition:left 0.5s;
-}
-.neo-btn:hover::before{left:100%;}
-
-.login-error{
-  color:var(--neon-pink);font-size:0.85rem;
-  margin-top:0.8rem;min-height:1.2rem;
-  font-family:'Orbitron',monospace;
-  letter-spacing:0.1em;
-}
-
-/* ── MAIN APP ── */
-#appShell{
-  display:none;
-  position:relative;z-index:10;
-  min-height:100vh;
-}
-
-/* ── NAV ── */
-.holo-nav{
-  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
-  z-index:200;
-  background:rgba(10,0,21,0.8);
-  border:1px solid rgba(0,212,255,0.15);
-  border-radius:50px;
-  padding:0.6rem 1.5rem;
-  display:flex;gap:0.3rem;
-  backdrop-filter:blur(20px);
-  box-shadow:0 0 30px rgba(0,0,0,0.5),0 0 60px rgba(0,212,255,0.05);
-}
-.nav-btn{
-  width:44px;height:44px;
-  border:none;background:none;
-  color:rgba(255,255,255,0.3);
-  border-radius:50%;
-  cursor:pointer;
-  font-size:1rem;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.3s;
-  position:relative;
-}
-.nav-btn.active{
-  color:var(--neon-blue);
-  background:rgba(0,212,255,0.1);
-}
-.nav-btn.active::after{
-  content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
-  width:4px;height:4px;border-radius:50%;
-  background:var(--neon-blue);
-  box-shadow:var(--glow-blue);
-}
-.nav-btn:hover{color:var(--neon-blue);}
-
-/* ── PAGES ── */
-.page{display:none;min-height:100vh;padding:5rem 1.5rem 6rem;}
-.page.active{display:block;}
-
-/* ── DASHBOARD ── */
-.dash-header{
-  text-align:center;padding-top:3rem;
-  position:relative;
-}
-.user-avatar-wrap{
-  width:80px;height:80px;margin:0 auto 1rem;
-  position:relative;
-}
-.user-avatar{
-  width:100%;height:100%;border-radius:50%;
-  border:2px solid var(--neon-blue);
-  box-shadow:var(--glow-blue);
-  object-fit:cover;
-}
-.online-dot{
-  position:absolute;bottom:4px;right:4px;
-  width:12px;height:12px;border-radius:50%;
-  background:#00ff88;
-  box-shadow:0 0 8px #00ff88;
-  border:2px solid var(--deep);
-}
-.greeting{
-  font-family:'Orbitron',monospace;
-  font-size:0.8rem;letter-spacing:0.2em;
-  color:rgba(255,255,255,0.4);
-  text-transform:uppercase;
-  margin-bottom:0.3rem;
-}
-.user-name{
-  font-family:'Cinzel Decorative',serif;
-  font-size:1.5rem;
-  background:linear-gradient(135deg,var(--neon-blue),var(--neon-pink));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-
-/* Counter */
-.counter-ring{
-  margin:2.5rem auto;
-  width:min(280px,80vw);
-  background:rgba(0,212,255,0.03);
-  border:1px solid rgba(0,212,255,0.1);
-  border-radius:20px;
-  padding:1.8rem;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.counter-ring::before{
-  content:'';position:absolute;inset:0;
-  background:conic-gradient(from 0deg,transparent 0%,rgba(0,212,255,0.05) 50%,transparent 100%);
-  animation:spin-slow 8s linear infinite;
-}
-@keyframes spin-slow{to{transform:rotate(360deg);}}
-
-.together-label{
-  font-family:'Orbitron',monospace;
-  font-size:0.6rem;letter-spacing:0.3em;
-  color:rgba(255,255,255,0.3);
-  text-transform:uppercase;
-  margin-bottom:1rem;
-  position:relative;z-index:1;
-}
-.counter-nums{
-  display:flex;gap:1rem;justify-content:center;
-  position:relative;z-index:1;
-}
-.c-unit{text-align:center;}
-.c-num{
-  font-family:'Orbitron',monospace;
-  font-size:clamp(1.4rem,4vw,2rem);
-  font-weight:900;
-  background:linear-gradient(180deg,#fff,var(--neon-blue));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  line-height:1;
-}
-.c-label{
-  font-size:0.6rem;letter-spacing:0.15em;
-  color:rgba(255,255,255,0.3);
-  text-transform:uppercase;
-  margin-top:0.2rem;
-}
-.c-sep{
-  font-size:1.5rem;color:rgba(0,212,255,0.3);
-  align-self:flex-start;margin-top:0.2rem;
-}
-
-/* Quote */
-.quote-card{
-  background:rgba(139,0,255,0.05);
-  border:1px solid rgba(139,0,255,0.15);
-  border-radius:12px;
-  padding:1.5rem;
-  margin:1.5rem 0;
-  position:relative;
-  cursor:pointer;
-  transition:border-color 0.3s,box-shadow 0.3s;
-}
-.quote-card:hover{
-  border-color:rgba(139,0,255,0.4);
-  box-shadow:var(--glow-purple);
-}
-.quote-text{
-  font-size:1rem;
-  color:rgba(255,255,255,0.7);
-  line-height:1.7;
-  font-style:italic;
-  text-align:center;
-}
-.quote-refresh{
-  position:absolute;top:0.8rem;right:0.8rem;
-  color:rgba(139,0,255,0.5);font-size:0.8rem;
-  transition:transform 0.5s,color 0.3s;
-}
-.quote-card:hover .quote-refresh{
-  transform:rotate(360deg);color:var(--neon-purple);
-}
-
-/* Grid cards */
-.dash-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0.8rem;
-  margin-top:1rem;
-}
-.dash-card{
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:12px;
-  padding:1.2rem;
-  cursor:pointer;
-  transition:all 0.3s;
-  position:relative;overflow:hidden;
-}
-.dash-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--neon-blue),transparent);
-  opacity:0;transition:opacity 0.3s;
-}
-.dash-card:hover{
-  border-color:rgba(0,212,255,0.2);
-  background:rgba(0,212,255,0.04);
-  transform:translateY(-2px);
-}
-.dash-card:hover::before{opacity:1;}
-.dash-card-icon{
-  font-size:1.5rem;margin-bottom:0.5rem;
-}
-.dash-card-title{
-  font-family:'Orbitron',monospace;
-  font-size:0.65rem;letter-spacing:0.1em;
-  color:rgba(255,255,255,0.5);
-  text-transform:uppercase;
-}
-
-/* ── CHAT ── */
-.chat-wrap{
-  height:calc(100vh - 8rem);
-  display:flex;flex-direction:column;
-  max-width:600px;margin:0 auto;
-}
-.chat-header{
-  display:flex;align-items:center;gap:0.8rem;
-  padding:1rem 0;
-  border-bottom:1px solid rgba(0,212,255,0.1);
-  margin-bottom:1rem;
-}
-.partner-avatar{
-  width:40px;height:40px;border-radius:50%;
-  border:2px solid var(--neon-pink);
-  box-shadow:var(--glow-pink);
-  object-fit:cover;
-}
-.partner-info{}
-.partner-name{
-  font-family:'Orbitron',monospace;
-  font-size:0.8rem;letter-spacing:0.1em;
-}
-.partner-status{
-  font-size:0.7rem;color:rgba(255,255,255,0.3);
-}
-.chat-actions{
-  margin-left:auto;display:flex;gap:0.5rem;
-}
-.chat-icon-btn{
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(0,212,255,0.2);
-  background:rgba(0,212,255,0.05);
-  color:var(--neon-blue);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:0.85rem;
-  transition:all 0.3s;
-}
-.chat-icon-btn:hover{
-  background:rgba(0,212,255,0.15);
-  box-shadow:var(--glow-blue);
-}
-
-.messages-area{
-  flex:1;overflow-y:auto;
-  display:flex;flex-direction:column;gap:0.8rem;
-  padding:0.5rem 0;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(0,212,255,0.2) transparent;
-}
-.msg{
-  max-width:75%;
-  padding:0.75rem 1rem;
-  border-radius:12px;
-  font-size:0.95rem;
-  line-height:1.5;
-  position:relative;
-  animation:msg-appear 0.3s ease;
-}
-@keyframes msg-appear{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.msg.mine{
-  align-self:flex-end;
-  background:linear-gradient(135deg,rgba(0,212,255,0.15),rgba(139,0,255,0.15));
-  border:1px solid rgba(0,212,255,0.2);
-  border-bottom-right-radius:4px;
-}
-.msg.theirs{
-  align-self:flex-start;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  border-bottom-left-radius:4px;
-}
-.msg-time{
-  font-size:0.6rem;color:rgba(255,255,255,0.2);
-  margin-top:0.3rem;text-align:right;
-}
-.typing-indicator{
-  align-self:flex-start;
-  padding:0.6rem 1rem;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:12px;border-bottom-left-radius:4px;
-  display:none;gap:0.3rem;align-items:center;
-}
-.typing-indicator.show{display:flex;}
-.typing-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:rgba(255,255,255,0.3);
-  animation:typing-bounce 1.2s ease infinite;
-}
-.typing-dot:nth-child(2){animation-delay:0.2s;}
-.typing-dot:nth-child(3){animation-delay:0.4s;}
-@keyframes typing-bounce{
-  0%,60%,100%{transform:translateY(0);}
-  30%{transform:translateY(-6px);background:var(--neon-blue);}
-}
-
-.chat-input-wrap{
-  display:flex;gap:0.6rem;
-  padding:0.8rem 0 0;
-  border-top:1px solid rgba(0,212,255,0.1);
-}
-.chat-input{
-  flex:1;
-  background:rgba(0,212,255,0.05);
-  border:1px solid rgba(0,212,255,0.15);
-  border-radius:50px;
-  color:#fff;
-  padding:0.75rem 1.2rem;
-  font-family:'Rajdhani',sans-serif;
-  font-size:1rem;
-  outline:none;
-  transition:border-color 0.3s,box-shadow 0.3s;
-}
-.chat-input:focus{
-  border-color:var(--neon-blue);
-  box-shadow:0 0 0 2px rgba(0,212,255,0.08);
-}
-.chat-input::placeholder{color:rgba(255,255,255,0.2);}
-.send-btn{
-  width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));
-  border:none;color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:1rem;
-  transition:transform 0.2s,box-shadow 0.3s;
-  flex-shrink:0;
-}
-.send-btn:hover{
-  transform:scale(1.1);
-  box-shadow:var(--glow-blue);
-}
-
-/* ── VIDEO CALL OVERLAY ── */
-#videoCallOverlay{
-  position:fixed;inset:0;z-index:500;
-  background:rgba(0,0,10,0.95);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  backdrop-filter:blur(20px);
-}
-#videoCallOverlay.hidden{display:none;}
-
-.video-grid{
-  width:100%;max-width:600px;
-  padding:1rem;
-  display:grid;gap:0.8rem;
-  grid-template-columns:1fr;
-}
-#remoteVideo,#localVideo{
-  width:100%;border-radius:16px;
-  background:#111;
-  border:1px solid rgba(0,212,255,0.2);
-  box-shadow:var(--glow-blue);
-}
-#localVideo{
-  position:absolute;bottom:5rem;right:1rem;
-  width:100px;height:140px;
-  object-fit:cover;
-  border:2px solid var(--neon-pink);
-  box-shadow:var(--glow-pink);
-}
-
-.call-controls{
-  display:flex;gap:1rem;
-  margin-top:1.5rem;
-}
-.call-btn{
-  width:56px;height:56px;border-radius:50%;
-  border:none;font-size:1.2rem;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  transition:all 0.3s;
-}
-.call-btn.mute-btn,.call-btn.cam-btn,.call-btn.screen-btn{
-  background:rgba(255,255,255,0.08);
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.1);
-}
-.call-btn.mute-btn:hover,.call-btn.cam-btn:hover,.call-btn.screen-btn:hover{
-  background:rgba(0,212,255,0.15);
-  border-color:var(--neon-blue);
-}
-.call-btn.end-btn{
-  background:var(--neon-pink);color:#fff;
-  box-shadow:var(--glow-pink);
-}
-.call-btn.active{
-  background:rgba(255,0,110,0.2);
-  border-color:var(--neon-pink);
-  color:var(--neon-pink);
-}
-
-#callStatus{
-  font-family:'Orbitron',monospace;
-  font-size:0.85rem;letter-spacing:0.2em;
-  color:var(--neon-blue);
-  margin-bottom:1rem;
-  display:none;
-}
-
-#callTimerBar{
-  position:fixed;top:1rem;left:50%;transform:translateX(-50%);
-  background:rgba(10,0,21,0.9);
-  border:1px solid rgba(0,212,255,0.2);
-  border-radius:50px;padding:0.4rem 1.5rem;
-  font-family:'Orbitron',monospace;font-size:0.8rem;
-  color:var(--neon-blue);z-index:600;
-}
-#callTimerBar.hidden{display:none;}
-
-/* Incoming call */
-#incomingCallModal{
-  position:fixed;inset:0;z-index:600;
-  background:rgba(0,0,10,0.8);backdrop-filter:blur(20px);
-  display:flex;align-items:center;justify-content:center;
-}
-#incomingCallModal.hidden{display:none;}
-.incoming-card{
-  background:rgba(10,0,21,0.9);
-  border:1px solid rgba(0,212,255,0.2);
-  border-radius:20px;padding:2rem;
-  text-align:center;
-  box-shadow:0 0 60px rgba(0,212,255,0.1);
-}
-.incoming-avatar{
-  width:80px;height:80px;border-radius:50%;
-  border:3px solid var(--neon-blue);
-  box-shadow:var(--glow-blue);
-  margin:0 auto 1rem;
-  display:block;
-  animation:ring-pulse 1s ease infinite;
-}
-@keyframes ring-pulse{
-  0%,100%{box-shadow:var(--glow-blue);}
-  50%{box-shadow:0 0 40px rgba(0,212,255,0.8),0 0 80px rgba(0,212,255,0.3);}
-}
-.incoming-name{
-  font-family:'Cinzel Decorative',serif;
-  font-size:1.1rem;margin-bottom:0.3rem;
-}
-.incoming-label{
-  font-size:0.75rem;color:rgba(255,255,255,0.3);
-  letter-spacing:0.2em;text-transform:uppercase;
-  margin-bottom:1.5rem;
-}
-.incoming-btns{display:flex;gap:1rem;justify-content:center;}
-.accept-btn{
-  padding:0.8rem 1.8rem;border-radius:50px;
-  background:linear-gradient(135deg,#00ff88,#00d4ff);
-  border:none;color:#000;font-family:'Orbitron',monospace;
-  font-size:0.75rem;letter-spacing:0.1em;cursor:pointer;
-  transition:transform 0.2s,box-shadow 0.3s;
-}
-.accept-btn:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(0,255,136,0.5);}
-.reject-btn{
-  padding:0.8rem 1.8rem;border-radius:50px;
-  background:rgba(255,0,110,0.15);
-  border:1px solid var(--neon-pink);
-  color:var(--neon-pink);font-family:'Orbitron',monospace;
-  font-size:0.75rem;letter-spacing:0.1em;cursor:pointer;
-  transition:all 0.3s;
-}
-.reject-btn:hover{background:rgba(255,0,110,0.3);}
-
-/* ── MEMORIES ── */
-.memories-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:0.8rem;
-  margin-top:1rem;
-}
-.memory-card{
-  border-radius:12px;
-  overflow:hidden;
-  position:relative;
-  cursor:pointer;
-  aspect-ratio:1;
-  border:1px solid rgba(255,255,255,0.06);
-  transition:transform 0.3s,box-shadow 0.3s;
-}
-.memory-card:hover{
-  transform:scale(1.03);
-  box-shadow:var(--glow-purple);
-}
-.memory-card img{
-  width:100%;height:100%;object-fit:cover;
-}
-.memory-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(0,0,20,0.8) 0%,transparent 60%);
-  padding:0.8rem;
-  display:flex;flex-direction:column;justify-content:flex-end;
-}
-.memory-note{font-size:0.75rem;color:rgba(255,255,255,0.8);}
-.memory-date{
-  font-size:0.65rem;color:rgba(0,212,255,0.6);
-  font-family:'Orbitron',monospace;
-}
-
-.upload-mem-btn{
-  width:100%;padding:1.2rem;
-  background:rgba(139,0,255,0.08);
-  border:1px dashed rgba(139,0,255,0.3);
-  border-radius:12px;color:rgba(255,255,255,0.4);
-  cursor:pointer;font-size:0.85rem;
-  transition:all 0.3s;margin-top:0.8rem;
-  display:flex;align-items:center;justify-content:center;gap:0.5rem;
-}
-.upload-mem-btn:hover{
-  background:rgba(139,0,255,0.12);
-  border-color:var(--neon-purple);
-  color:#fff;
-}
-
-/* ── SETTINGS ── */
-.settings-section{
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:12px;
-  padding:1.2rem;
-  margin-bottom:1rem;
-}
-.settings-title{
-  font-family:'Orbitron',monospace;
-  font-size:0.7rem;letter-spacing:0.2em;
-  color:rgba(0,212,255,0.6);
-  text-transform:uppercase;
-  margin-bottom:1rem;
-}
-.theme-btns{display:flex;gap:0.5rem;}
-.theme-btn{
-  flex:1;padding:0.6rem;border-radius:8px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:transparent;color:rgba(255,255,255,0.5);
-  cursor:pointer;font-size:0.8rem;
-  transition:all 0.3s;
-}
-.theme-btn.active,.theme-btn:hover{
-  border-color:var(--neon-blue);
-  color:var(--neon-blue);
-  background:rgba(0,212,255,0.08);
-}
-.logout-btn{
-  width:100%;padding:0.9rem;
-  background:rgba(255,0,110,0.08);
-  border:1px solid rgba(255,0,110,0.2);
-  border-radius:8px;color:var(--neon-pink);
-  cursor:pointer;font-family:'Orbitron',monospace;
-  font-size:0.7rem;letter-spacing:0.1em;
-  transition:all 0.3s;
-}
-.logout-btn:hover{
-  background:rgba(255,0,110,0.15);
-  box-shadow:var(--glow-pink);
-}
-
-/* ── PAGE HEADERS ── */
-.page-header{
-  font-family:'Cinzel Decorative',serif;
-  font-size:1.2rem;
-  background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  margin-bottom:1.5rem;
-  padding-top:1.5rem;
-}
-
-/* ── TOAST ── */
-#toast{
-  position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-100px);
-  background:rgba(10,0,21,0.95);
-  border:1px solid rgba(0,212,255,0.3);
-  border-radius:50px;padding:0.6rem 1.5rem;
-  font-family:'Orbitron',monospace;font-size:0.7rem;
-  letter-spacing:0.1em;color:var(--neon-blue);
-  z-index:1000;
-  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow:var(--glow-blue);
-  white-space:nowrap;
-}
-#toast.show{transform:translateX(-50%) translateY(0);}
-
-/* ── CALENDAR ── */
-.calendar-wrap{margin-top:1rem;}
-.cal-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:1rem;
-}
-.cal-nav-btn{
-  width:32px;height:32px;border-radius:50%;
-  border:1px solid rgba(0,212,255,0.2);
-  background:rgba(0,212,255,0.05);
-  color:var(--neon-blue);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.3s;
-}
-.cal-nav-btn:hover{background:rgba(0,212,255,0.15);}
-.cal-month{
-  font-family:'Orbitron',monospace;
-  font-size:0.85rem;letter-spacing:0.15em;
-  color:rgba(255,255,255,0.7);
-}
-.cal-grid{
-  display:grid;grid-template-columns:repeat(7,1fr);gap:0.3rem;
-}
-.cal-day-name{
-  text-align:center;
-  font-size:0.6rem;letter-spacing:0.1em;
-  color:rgba(255,255,255,0.2);
-  text-transform:uppercase;padding:0.3rem 0;
-}
-.cal-day{
-  aspect-ratio:1;
-  border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.8rem;color:rgba(255,255,255,0.5);
-  cursor:pointer;transition:all 0.2s;
-  position:relative;
-}
-.cal-day:hover{background:rgba(0,212,255,0.1);color:#fff;}
-.cal-day.today{
-  background:rgba(0,212,255,0.15);
-  color:var(--neon-blue);
-  border:1px solid rgba(0,212,255,0.3);
-}
-.cal-day.has-event::after{
-  content:'';position:absolute;bottom:2px;
-  width:4px;height:4px;border-radius:50%;
-  background:var(--neon-pink);
-}
-
-/* ── TODO ── */
-.todo-item{
-  display:flex;align-items:center;gap:0.8rem;
-  padding:0.8rem 1rem;
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(255,255,255,0.05);
-  border-radius:8px;
-  margin-bottom:0.5rem;
-  transition:all 0.3s;
-}
-.todo-item.done{opacity:0.4;}
-.todo-check{
-  width:20px;height:20px;border-radius:50%;
-  border:2px solid rgba(0,212,255,0.3);
-  flex-shrink:0;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.3s;
-}
-.todo-item.done .todo-check{
-  background:var(--neon-blue);
-  border-color:var(--neon-blue);
-}
-.todo-text{flex:1;font-size:0.9rem;}
-.todo-item.done .todo-text{text-decoration:line-through;}
-
-/* ── LOADING SCREEN ── */
-#loadScreen{
-  position:fixed;inset:0;z-index:999;
-  background:var(--void);
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:1.5rem;
-}
-.load-title{
-  font-family:'Cinzel Decorative',serif;
-  font-size:clamp(1rem,3vw,1.5rem);
-  background:linear-gradient(135deg,var(--neon-blue),var(--neon-pink));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  letter-spacing:0.1em;
-}
-.load-bar{
-  width:200px;height:2px;
-  background:rgba(255,255,255,0.05);
-  border-radius:2px;overflow:hidden;
-}
-.load-fill{
-  height:100%;width:0%;
-  background:linear-gradient(90deg,var(--neon-blue),var(--neon-purple),var(--neon-pink));
-  border-radius:2px;
-  animation:load-progress 1.5s ease forwards;
-}
-@keyframes load-progress{to{width:100%;}}
-
-/* scrollbar */
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:rgba(0,212,255,0.2);border-radius:2px;}
-
-/* ── PARTNER OFFLINE ── */
-.offline-badge{
-  display:inline-flex;align-items:center;gap:0.4rem;
-  padding:0.3rem 0.8rem;border-radius:50px;
-  background:rgba(255,165,0,0.1);
-  border:1px solid rgba(255,165,0,0.2);
-  font-size:0.7rem;color:rgba(255,165,0,0.8);
-  font-family:'Orbitron',monospace;
-  letter-spacing:0.1em;
-}
-
-/* ── AURORA BG ── */
-.aurora{
-  position:fixed;inset:0;z-index:1;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 30%,rgba(0,212,255,0.04) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 70%,rgba(139,0,255,0.04) 0%,transparent 60%),
-    radial-gradient(ellipse 70% 60% at 50% 100%,rgba(255,0,110,0.03) 0%,transparent 60%);
-  animation:aurora-shift 10s ease-in-out infinite alternate;
-}
-@keyframes aurora-shift{
-  0%{opacity:0.6;transform:scale(1);}
-  100%{opacity:1;transform:scale(1.05);}
-}
-
-/* ── VOICE MSG placeholder ── */
-.voice-btn{
-  width:44px;height:44px;border-radius:50%;
-  background:rgba(255,0,110,0.08);
-  border:1px solid rgba(255,0,110,0.2);
-  color:var(--neon-pink);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:1rem;flex-shrink:0;
-  transition:all 0.3s;
-}
-.voice-btn:hover{
-  background:rgba(255,0,110,0.15);
-  box-shadow:var(--glow-pink);
-}
-.voice-btn.recording{
-  animation:rec-pulse 0.8s ease infinite;
-}
-@keyframes rec-pulse{
-  0%,100%{box-shadow:var(--glow-pink);}
-  50%{box-shadow:0 0 30px rgba(255,0,110,0.8);}
-}
-
-/* empty chat */
-.chat-empty{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:0.5rem;opacity:0.3;
-}
-.chat-empty i{font-size:2rem;}
-.chat-empty p{font-size:0.8rem;letter-spacing:0.1em;}
-</style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<!-- Cursor -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+  <!-- ═══════════════════════════════════════ PARTICLE CANVAS ═══ -->
+  <canvas id="particleCanvas"></canvas>
 
-<!-- Aurora -->
-<div class="aurora"></div>
+  <!-- ═══════════════════════════════════════ LOGIN PAGE ═══════════ -->
+  <div id="loginPage" class="page active">
+    <div class="login-container">
+      <div class="login-glass">
+        <div class="logo-wrap">
+          <div class="logo-heart">
+            <i class="fas fa-heart"></i>
+            <div class="logo-pulse"></div>
+          </div>
+          <h1 class="logo-title">Just Rodyy<br/><span>Forever</span></h1>
+        </div>
+        <p class="login-subtitle">Your private little universe 🌸</p>
 
-<!-- Background Canvas -->
-<canvas id="bg-canvas"></canvas>
-
-<!-- Loading Screen -->
-<div id="loadScreen">
-  <div class="load-title">Just Rodyy Forever</div>
-  <div class="load-bar"><div class="load-fill"></div></div>
-</div>
-
-<!-- Toast -->
-<div id="toast"></div>
-
-<!-- ═══════════════════════════════════════ LOGIN ═══ -->
-<div id="loginPage">
-  <div id="loginOverlay">
-    <div class="login-universe">
-      <div class="heart-orb">
-        <svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 85 C50 85 5 55 5 28 C5 14 16 5 28 5 C37 5 45 10 50 18 C55 10 63 5 72 5 C84 5 95 14 95 28 C95 55 50 85 50 85Z"
-            fill="url(#hg)" stroke="rgba(255,0,110,0.4)" stroke-width="1"/>
-          <defs>
-            <linearGradient id="hg" x1="50" y1="5" x2="50" y2="85" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#ff006e" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#8b00ff" stop-opacity="0.6"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-
-      <div class="login-title">Just Rodyy Forever</div>
-      <div class="login-sub">Your Private Universe</div>
-
-      <div class="glass-panel">
-        <div class="field-label">Who are you?</div>
-        <select class="neo-select" id="userSelect">
-          <option value="">— choose —</option>
-          <option value="user1">Rody 💙</option>
-          <option value="user2">My Love 💖</option>
-        </select>
-
-        <div class="field-label">Secret Code</div>
-        <div class="input-wrap">
-          <input class="neo-input" id="codeInput" type="password" placeholder="Enter your secret code…"/>
-          <button class="eye-btn" id="eyeBtn"><i class="fas fa-eye"></i></button>
+        <div class="form-group">
+          <label>Who are you?</label>
+          <div class="select-wrap">
+            <select id="userSelect">
+              <option value="">— choose —</option>
+              <option value="user1">Rody 💙</option>
+              <option value="user2">My Love 💖</option>
+            </select>
+          </div>
         </div>
 
-        <button class="neo-btn" id="loginBtn">
-          <i class="fas fa-rocket" style="margin-right:0.5rem"></i>Enter Our World
-        </button>
-        <div class="login-error" id="loginError"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════ APP ═══ -->
-<div id="appShell">
-
-  <!-- NAV -->
-  <nav class="holo-nav">
-    <button class="nav-btn active" data-page="dashboard"><i class="fas fa-home"></i></button>
-    <button class="nav-btn" data-page="chat"><i class="fas fa-comment-dots"></i></button>
-    <button class="nav-btn" data-page="memories"><i class="fas fa-images"></i></button>
-    <button class="nav-btn" data-page="calendar"><i class="fas fa-calendar-heart"></i></button>
-    <button class="nav-btn" data-page="settings"><i class="fas fa-sliders"></i></button>
-  </nav>
-
-  <!-- ── DASHBOARD ── -->
-  <div class="page active" id="page-dashboard">
-    <div class="dash-header">
-      <div class="user-avatar-wrap">
-        <img class="user-avatar" id="myAvatar" src="" alt=""/>
-        <div class="online-dot"></div>
-      </div>
-      <div class="greeting">Welcome back</div>
-      <div class="user-name" id="myName"></div>
-    </div>
-
-    <div class="counter-ring">
-      <div class="together-label">Together Since</div>
-      <div id="startDateWrap" style="margin-bottom:0.8rem;position:relative;z-index:1">
-        <button id="editDateBtn" style="background:none;border:none;color:rgba(0,212,255,0.4);font-size:0.7rem;cursor:pointer;font-family:Orbitron,monospace;letter-spacing:0.1em">
-          <i class="fas fa-pen"></i> Set Date
-        </button>
-        <input type="date" id="startDateInput" style="display:none;background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:6px;color:#fff;padding:0.3rem 0.6rem;font-size:0.8rem"/>
-      </div>
-      <div class="counter-nums" id="counterNums">
-        <div class="c-unit"><div class="c-num" id="cYears">0</div><div class="c-label">Years</div></div>
-        <div class="c-sep">·</div>
-        <div class="c-unit"><div class="c-num" id="cMonths">0</div><div class="c-label">Months</div></div>
-        <div class="c-sep">·</div>
-        <div class="c-unit"><div class="c-num" id="cDays">0</div><div class="c-label">Days</div></div>
-        <div class="c-sep">·</div>
-        <div class="c-unit"><div class="c-num" id="cHours">0</div><div class="c-label">Hours</div></div>
-      </div>
-    </div>
-
-    <div class="quote-card" id="quoteCard">
-      <i class="fas fa-rotate-right quote-refresh"></i>
-      <div class="quote-text" id="quoteText">Loading a love quote for you…</div>
-    </div>
-
-    <div class="dash-grid">
-      <div class="dash-card" onclick="nav('chat')">
-        <div class="dash-card-icon">💬</div>
-        <div class="dash-card-title">Chat</div>
-      </div>
-      <div class="dash-card" id="startCallBtn">
-        <div class="dash-card-icon">📹</div>
-        <div class="dash-card-title">Video Call</div>
-      </div>
-      <div class="dash-card" onclick="nav('memories')">
-        <div class="dash-card-icon">🖼️</div>
-        <div class="dash-card-title">Memories</div>
-      </div>
-      <div class="dash-card" onclick="nav('calendar')">
-        <div class="dash-card-icon">📅</div>
-        <div class="dash-card-title">Calendar</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── CHAT ── -->
-  <div class="page" id="page-chat">
-    <div class="chat-wrap">
-      <div class="chat-header">
-        <img class="partner-avatar" id="partnerAvatar" src="" alt=""/>
-        <div class="partner-info">
-          <div class="partner-name" id="partnerName"></div>
-          <div class="partner-status" id="partnerStatus">Connecting…</div>
+        <div class="form-group">
+          <label>Secret Code</label>
+          <div class="input-wrap">
+            <input type="password" id="accessCode" placeholder="Enter your secret code…" />
+            <button class="eye-btn" id="eyeBtn" type="button"><i class="fas fa-eye"></i></button>
+          </div>
         </div>
-        <div class="chat-actions">
-          <button class="chat-icon-btn" id="chatCallBtn"><i class="fas fa-video"></i></button>
-        </div>
-      </div>
 
-      <div class="messages-area" id="messagesArea">
-        <div class="chat-empty">
-          <i class="fas fa-heart"></i>
-          <p>Start the conversation 💙</p>
-        </div>
-      </div>
-
-      <div class="typing-indicator" id="typingIndicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
-
-      <div class="chat-input-wrap">
-        <button class="voice-btn" id="voiceBtn"><i class="fas fa-microphone"></i></button>
-        <input class="chat-input" id="msgInput" placeholder="Type a message…" autocomplete="off"/>
-        <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── MEMORIES ── -->
-  <div class="page" id="page-memories">
-    <div class="page-header">Our Memories ✨</div>
-    <div class="memories-grid" id="memoriesGrid"></div>
-    <label class="upload-mem-btn">
-      <i class="fas fa-plus"></i> Add Memory
-      <input type="file" id="memFileInput" accept="image/*" style="display:none"/>
-    </label>
-    <div id="memCaption" style="margin-top:0.8rem;display:none">
-      <input class="neo-input" id="memNote" placeholder="Add a note…"/>
-      <button class="neo-btn" id="uploadMemBtn">Upload Memory 💫</button>
-    </div>
-  </div>
-
-  <!-- ── CALENDAR ── -->
-  <div class="page" id="page-calendar">
-    <div class="page-header">Our Calendar 📅</div>
-    <div class="calendar-wrap">
-      <div class="cal-nav">
-        <button class="cal-nav-btn" id="calPrev"><i class="fas fa-chevron-left"></i></button>
-        <div class="cal-month" id="calMonth"></div>
-        <button class="cal-nav-btn" id="calNext"><i class="fas fa-chevron-right"></i></button>
-      </div>
-      <div class="cal-grid" id="calGrid"></div>
-    </div>
-    <div style="margin-top:1.5rem">
-      <div class="page-header" style="font-size:0.9rem;padding-top:0">Events</div>
-      <div id="eventsList"></div>
-      <input class="neo-input" id="eventInput" placeholder="Add an event…" style="margin-top:0.8rem"/>
-      <button class="neo-btn" id="addEventBtn" style="margin-top:0.5rem">Add Event</button>
-    </div>
-  </div>
-
-  <!-- ── SETTINGS ── -->
-  <div class="page" id="page-settings">
-    <div class="page-header">Settings ⚙️</div>
-    <div class="settings-section">
-      <div class="settings-title">Profile</div>
-      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
-        <img id="settingsAvatar" src="" style="width:50px;height:50px;border-radius:50%;border:2px solid var(--neon-blue)"/>
-        <div>
-          <div style="font-family:Orbitron,monospace;font-size:0.8rem" id="settingsName"></div>
-          <label style="font-size:0.75rem;color:rgba(0,212,255,0.5);cursor:pointer">
-            <i class="fas fa-camera"></i> Change Avatar
-            <input type="file" id="avatarInput" accept="image/*" style="display:none"/>
+        <div class="form-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberMe" />
+            <span class="checkmark"></span>
+            Remember me
           </label>
         </div>
+
+        <button class="btn-primary" id="loginBtn">
+          <span>Enter Our World</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <div id="loginError" class="error-msg"></div>
       </div>
     </div>
-    <div class="settings-section">
-      <div class="settings-title">To-Do List</div>
-      <div id="todoList"></div>
-      <input class="neo-input" id="todoInput" placeholder="Add a task…" style="margin-top:0.8rem"/>
-      <button class="neo-btn" id="addTodoBtn" style="margin-top:0.5rem">Add Task</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════ APP SHELL ══════════════ -->
+  <div id="appShell" class="page">
+
+    <!-- ── Sidebar ── -->
+    <aside id="sidebar">
+      <div class="sidebar-top">
+        <div class="own-avatar" id="sidebarAvatar">
+          <img id="sidebarAvatarImg" src="" alt="" />
+          <span class="status-dot online"></span>
+        </div>
+        <p class="own-name" id="sidebarName">…</p>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="dashboard"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-item" data-page="chat"><i class="fas fa-comments"></i><span>Chat</span><span class="badge" id="chatBadge"></span></a>
+        <a href="#" class="nav-item" data-page="memories"><i class="fas fa-images"></i><span>Memories</span></a>
+        <a href="#" class="nav-item" data-page="calendar"><i class="fas fa-calendar-heart"></i><span>Calendar</span></a>
+        <a href="#" class="nav-item" data-page="todo"><i class="fas fa-list-check"></i><span>To-Do</span></a>
+        <a href="#" class="nav-item" data-page="settings"><i class="fas fa-sliders"></i><span>Settings</span></a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <button class="nav-item" id="logoutBtn"><i class="fas fa-right-from-bracket"></i><span>Logout</span></button>
+      </div>
+    </aside>
+
+    <!-- ── Mobile Bottom Nav ── -->
+    <nav id="mobileNav">
+      <a href="#" class="mnav active" data-page="dashboard"><i class="fas fa-home"></i></a>
+      <a href="#" class="mnav" data-page="chat"><i class="fas fa-comments"></i><span class="badge" id="chatBadgeMob"></span></a>
+      <a href="#" class="mnav" data-page="memories"><i class="fas fa-images"></i></a>
+      <a href="#" class="mnav" data-page="calendar"><i class="fas fa-calendar-heart"></i></a>
+      <a href="#" class="mnav" data-page="settings"><i class="fas fa-sliders"></i></a>
+    </nav>
+
+    <!-- ── Main Content ── -->
+    <main id="mainContent">
+
+      <!-- ══════════════ DASHBOARD ══════════════ -->
+      <section id="dashboard" class="section active">
+        <div class="section-header">
+          <h2>Welcome back <span id="dashGreetName"></span> 💕</h2>
+        </div>
+
+        <!-- Relationship Counter -->
+        <div class="counter-card glass-card">
+          <div class="counter-title">
+            <i class="fas fa-heart-pulse"></i>
+            Together since
+            <button class="tiny-btn" id="editStartDate"><i class="fas fa-pen"></i></button>
+          </div>
+          <input type="date" id="startDateInput" class="hidden-date" />
+          <div class="counter-grid">
+            <div class="counter-unit"><span id="cYears">0</span><label>Years</label></div>
+            <div class="counter-unit"><span id="cMonths">0</span><label>Months</label></div>
+            <div class="counter-unit"><span id="cDays">0</span><label>Days</label></div>
+            <div class="counter-unit"><span id="cHours">0</span><label>Hours</label></div>
+            <div class="counter-unit"><span id="cMins">0</span><label>Minutes</label></div>
+          </div>
+        </div>
+
+        <!-- Partner Status -->
+        <div class="partner-card glass-card">
+          <img id="partnerAvatar" src="" alt="" class="partner-img" />
+          <div>
+            <p class="partner-name" id="partnerName"></p>
+            <span class="partner-status" id="partnerStatus"><i class="fas fa-circle"></i> Offline</span>
+          </div>
+          <div class="quick-actions">
+            <button class="qa-btn" id="qaChat" title="Open Chat"><i class="fas fa-message"></i></button>
+            <button class="qa-btn" id="qaCall" title="Video Call"><i class="fas fa-video"></i></button>
+          </div>
+        </div>
+
+        <!-- Love Quote -->
+        <div class="quote-card glass-card">
+          <i class="fas fa-quote-left quote-icon"></i>
+          <p id="quoteText" class="quote-text">Loading a love quote…</p>
+          <button class="tiny-btn" id="refreshQuote"><i class="fas fa-rotate"></i> New quote</button>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="qa-grid">
+          <button class="qa-big glass-card" data-page="chat"><i class="fas fa-comments"></i><span>Chat</span></button>
+          <button class="qa-big glass-card" id="startCallBtn"><i class="fas fa-video"></i><span>Video Call</span></button>
+          <button class="qa-big glass-card" data-page="memories"><i class="fas fa-images"></i><span>Memories</span></button>
+          <button class="qa-big glass-card" data-page="calendar"><i class="fas fa-calendar-heart"></i><span>Calendar</span></button>
+        </div>
+      </section>
+
+      <!-- ══════════════ CHAT ══════════════ -->
+      <section id="chat" class="section">
+        <div class="chat-header">
+          <div class="chat-partner-info">
+            <img id="chatPartnerAvatar" src="" alt="" />
+            <div>
+              <p id="chatPartnerName"></p>
+              <span id="chatPartnerStatus" class="typing-status"></span>
+            </div>
+          </div>
+          <div class="chat-actions">
+            <button class="icon-btn" id="searchToggle" title="Search"><i class="fas fa-magnifying-glass"></i></button>
+            <button class="icon-btn" id="chatCallBtn" title="Video Call"><i class="fas fa-video"></i></button>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div id="searchBar" class="search-bar hidden">
+          <input type="text" id="searchInput" placeholder="Search messages…" />
+          <button id="searchClose"><i class="fas fa-xmark"></i></button>
+        </div>
+
+        <!-- Messages -->
+        <div id="messagesContainer" class="messages-container">
+          <div class="messages-inner" id="messagesList"></div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+          <button class="icon-btn" id="attachBtn" title="Image"><i class="fas fa-image"></i></button>
+          <input type="file" id="imageFileInput" accept="image/*" class="hidden" />
+          <button class="icon-btn" id="voiceBtn" title="Voice message"><i class="fas fa-microphone"></i></button>
+          <div class="msg-input-wrap">
+            <textarea id="msgInput" placeholder="Write something sweet…" rows="1"></textarea>
+          </div>
+          <button class="send-btn" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+
+        <!-- Voice Recorder UI -->
+        <div id="voiceRecorder" class="voice-recorder hidden">
+          <div class="rec-indicator"><span class="rec-dot"></span> Recording…</div>
+          <div id="waveform" class="waveform">
+            <canvas id="waveCanvas" width="200" height="40"></canvas>
+          </div>
+          <span id="recTimer">0:00</span>
+          <button class="icon-btn red" id="stopRec"><i class="fas fa-stop"></i></button>
+          <button class="icon-btn" id="cancelRec"><i class="fas fa-xmark"></i></button>
+        </div>
+      </section>
+
+      <!-- ══════════════ MEMORIES ══════════════ -->
+      <section id="memories" class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-images"></i> Our Memories</h2>
+          <button class="btn-primary sm" id="uploadMemBtn"><i class="fas fa-plus"></i> Add Memory</button>
+        </div>
+        <input type="file" id="memFileInput" accept="image/*" class="hidden" />
+
+        <div id="memoriesGrid" class="memories-grid"></div>
+      </section>
+
+      <!-- ══════════════ CALENDAR ══════════════ -->
+      <section id="calendar" class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-calendar-heart"></i> Our Calendar</h2>
+          <button class="btn-primary sm" id="addEventBtn"><i class="fas fa-plus"></i> Add Event</button>
+        </div>
+        <div class="cal-nav">
+          <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+          <span id="calMonthLabel"></span>
+          <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div id="calGrid" class="cal-grid"></div>
+        <div id="calEvents" class="cal-events"></div>
+      </section>
+
+      <!-- ══════════════ TO-DO ══════════════ -->
+      <section id="todo" class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-list-check"></i> Our To-Do List</h2>
+        </div>
+        <div class="todo-input-row">
+          <input type="text" id="todoInput" placeholder="Add something to do together…" />
+          <button class="btn-primary" id="addTodoBtn"><i class="fas fa-plus"></i></button>
+        </div>
+        <ul id="todoList" class="todo-list"></ul>
+      </section>
+
+      <!-- ══════════════ SETTINGS ══════════════ -->
+      <section id="settings" class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-sliders"></i> Settings</h2>
+        </div>
+
+        <div class="settings-group glass-card">
+          <h3>Profile</h3>
+          <div class="avatar-upload-row">
+            <img id="settingsAvatar" src="" alt="" class="settings-avatar" />
+            <button class="btn-secondary" id="changeAvatarBtn">Change Photo</button>
+            <input type="file" id="avatarFileInput" accept="image/*" class="hidden" />
+          </div>
+          <div class="form-group">
+            <label>Display Name</label>
+            <input type="text" id="displayNameInput" />
+          </div>
+          <button class="btn-primary" id="saveProfileBtn">Save Profile</button>
+        </div>
+
+        <div class="settings-group glass-card">
+          <h3>Appearance</h3>
+          <div class="theme-row">
+            <button class="theme-chip active" data-theme="dark">🌙 Dark</button>
+            <button class="theme-chip" data-theme="light">☀️ Light</button>
+            <button class="theme-chip" data-theme="rose">🌹 Rose</button>
+          </div>
+        </div>
+
+        <div class="settings-group glass-card">
+          <h3>Background Music</h3>
+          <div class="music-player">
+            <button class="icon-btn" id="musicToggle"><i class="fas fa-play"></i></button>
+            <input type="range" id="musicVolume" min="0" max="1" step="0.05" value="0.3" />
+            <span>🎵 Ambient Love</span>
+          </div>
+        </div>
+
+        <div class="settings-group glass-card">
+          <h3>Anniversary Reminder</h3>
+          <div class="form-group">
+            <label>Relationship Start Date</label>
+            <input type="date" id="anniversaryDate" />
+          </div>
+          <button class="btn-primary" id="saveAnniversary">Save</button>
+        </div>
+
+        <div class="settings-group glass-card">
+          <h3>Push Notifications</h3>
+          <button class="btn-secondary" id="enableNotifBtn"><i class="fas fa-bell"></i> Enable Notifications</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════ VIDEO CALL OVERLAY ═══ -->
+  <div id="videoCallOverlay" class="video-overlay hidden">
+    <div id="remoteVideoWrap" class="remote-video-wrap">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <div id="callStatus" class="call-status">Calling…</div>
     </div>
-    <div class="settings-section">
-      <div class="settings-title">Theme</div>
-      <div class="theme-btns">
-        <button class="theme-btn active" data-theme="dark">🌌 Dark</button>
-        <button class="theme-btn" data-theme="rose">🌹 Rose</button>
-        <button class="theme-btn" data-theme="cyber">⚡ Cyber</button>
+    <div id="localVideoWrap" class="local-video-wrap">
+      <video id="localVideo" autoplay playsinline muted></video>
+    </div>
+    <div class="call-timer-bar" id="callTimerBar">
+      <i class="fas fa-circle red-dot pulsing"></i>
+      <span id="callTimer">0:00</span>
+    </div>
+    <div class="call-controls">
+      <button class="call-ctrl" id="toggleMute" title="Mute"><i class="fas fa-microphone"></i></button>
+      <button class="call-ctrl" id="toggleCam" title="Camera"><i class="fas fa-video"></i></button>
+      <button class="call-ctrl" id="toggleScreen" title="Screen"><i class="fas fa-display"></i></button>
+      <button class="call-ctrl end" id="endCallBtn" title="End"><i class="fas fa-phone-slash"></i></button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ INCOMING CALL MODAL ══ -->
+  <div id="incomingCallModal" class="modal hidden">
+    <div class="modal-glass">
+      <div class="incoming-avatar">
+        <img id="incomingAvatar" src="" alt="" />
+        <div class="ring-anim"></div>
+      </div>
+      <p id="incomingName" class="incoming-name"></p>
+      <p class="incoming-sub">Incoming Video Call…</p>
+      <div class="incoming-btns">
+        <button class="call-ctrl end" id="rejectCallBtn"><i class="fas fa-phone-slash"></i></button>
+        <button class="call-ctrl accept" id="acceptCallBtn"><i class="fas fa-phone"></i></button>
       </div>
     </div>
-    <button class="logout-btn" id="logoutBtn">
-      <i class="fas fa-sign-out-alt" style="margin-right:0.5rem"></i>Disconnect
-    </button>
   </div>
 
-</div><!-- /appShell -->
-
-<!-- ── VIDEO CALL OVERLAY ── -->
-<div id="videoCallOverlay" class="hidden">
-  <div id="callStatus">Connecting… 💫</div>
-  <video id="remoteVideo" autoplay playsinline style="max-height:50vh;width:100%;max-width:400px;border-radius:16px;background:#111;border:1px solid rgba(0,212,255,0.2)"></video>
-  <video id="localVideo" autoplay muted playsinline></video>
-  <div class="call-controls">
-    <button class="call-btn mute-btn" id="toggleMute"><i class="fas fa-microphone"></i></button>
-    <button class="call-btn cam-btn" id="toggleCam"><i class="fas fa-video"></i></button>
-    <button class="call-btn screen-btn" id="toggleScreen"><i class="fas fa-display"></i></button>
-    <button class="call-btn end-btn" id="endCallBtn"><i class="fas fa-phone-slash"></i></button>
-  </div>
-</div>
-<div id="callTimerBar" class="hidden">⏱ <span id="callTimer">0:00</span></div>
-
-<!-- ── INCOMING CALL ── -->
-<div id="incomingCallModal" class="hidden">
-  <div class="incoming-card">
-    <img id="incomingAvatar" class="incoming-avatar" src="" alt=""/>
-    <div class="incoming-name" id="incomingName"></div>
-    <div class="incoming-label">Incoming Video Call</div>
-    <div class="incoming-btns">
-      <button class="accept-btn" id="acceptCallBtn"><i class="fas fa-phone"></i> Accept</button>
-      <button class="reject-btn" id="rejectCallBtn"><i class="fas fa-phone-slash"></i> Reject</button>
+  <!-- ═══════════════════════════════════════ IMAGE PREVIEW MODAL ══ -->
+  <div id="imagePreviewModal" class="modal hidden">
+    <div class="image-preview-wrap">
+      <img id="previewImg" src="" alt="" />
+      <button class="modal-close" id="closePreview"><i class="fas fa-xmark"></i></button>
+      <a class="download-btn" id="downloadImg" download><i class="fas fa-download"></i></a>
     </div>
   </div>
-</div>
 
-<!-- ── SCRIPTS ── -->
-<script>
-// ═══════════════════════════════════════════════════
-//  PARTICLE BACKGROUND
-// ═══════════════════════════════════════════════════
-(function(){
-  const canvas=document.getElementById('bg-canvas');
-  const ctx=canvas.getContext('2d');
-  let W,H,particles=[];
-  const COLORS=['#00d4ff','#8b00ff','#ff006e','#ffd700'];
+  <!-- ═══════════════════════════════════════ ADD MEMORY MODAL ══════ -->
+  <div id="addMemoryModal" class="modal hidden">
+    <div class="modal-glass">
+      <h3>Add a Memory 💕</h3>
+      <img id="memPreviewImg" src="" alt="" class="mem-preview" />
+      <div class="form-group">
+        <label>Note</label>
+        <textarea id="memNote" rows="3" placeholder="What's the story behind this moment?"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="memDate" />
+      </div>
+      <div class="modal-btns">
+        <button class="btn-secondary" id="cancelMemBtn">Cancel</button>
+        <button class="btn-primary" id="saveMemBtn">Save Memory</button>
+      </div>
+    </div>
+  </div>
 
-  function resize(){
-    W=canvas.width=window.innerWidth;
-    H=canvas.height=window.innerHeight;
-  }
+  <!-- ═══════════════════════════════════════ ADD EVENT MODAL ════════ -->
+  <div id="addEventModal" class="modal hidden">
+    <div class="modal-glass">
+      <h3>Add Event 📅</h3>
+      <div class="form-group">
+        <label>Event Name</label>
+        <input type="text" id="eventName" placeholder="e.g. Our Anniversary" />
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="eventDate" />
+      </div>
+      <div class="form-group">
+        <label>Color</label>
+        <input type="color" id="eventColor" value="#ff4d8d" />
+      </div>
+      <div class="modal-btns">
+        <button class="btn-secondary" id="cancelEventBtn">Cancel</button>
+        <button class="btn-primary" id="saveEventBtn">Save Event</button>
+      </div>
+    </div>
+  </div>
 
-  function Particle(){
-    this.reset=function(){
-      this.x=Math.random()*W;
-      this.y=Math.random()*H;
-      this.r=Math.random()*1.5+0.3;
-      this.vx=(Math.random()-0.5)*0.3;
-      this.vy=(Math.random()-0.5)*0.3;
-      this.alpha=Math.random()*0.5+0.1;
-      this.color=COLORS[Math.floor(Math.random()*COLORS.length)];
-      this.life=0;
-      this.maxLife=200+Math.random()*300;
-    };
-    this.reset();
-    this.life=Math.random()*this.maxLife;
-  }
+  <!-- ═══════════════════════════════════════ CONTEXT MENU ════════════ -->
+  <div id="contextMenu" class="context-menu hidden">
+    <button id="ctxEdit"><i class="fas fa-pen"></i> Edit</button>
+    <button id="ctxDelete"><i class="fas fa-trash"></i> Delete</button>
+    <button id="ctxReact"><i class="fas fa-face-smile"></i> React</button>
+  </div>
+  <div id="emojiPicker" class="emoji-picker hidden">❤️ 😍 😘 🥰 😂 😭 🔥 💯 🌹 ✨</div>
 
-  function init(){
-    resize();
-    particles=Array.from({length:120},()=>new Particle());
-  }
+  <!-- ═══════════════════════════════════════ TOAST ═══════════════════ -->
+  <div id="toast" class="toast hidden"></div>
 
-  let mouseX=W/2,mouseY=H/2;
-  window.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    particles.forEach(p=>{
-      p.life++;
-      if(p.life>p.maxLife){p.reset();return;}
-      const lifeRatio=p.life/p.maxLife;
-      const fadeAlpha=p.alpha*(lifeRatio<0.1?lifeRatio*10:lifeRatio>0.9?(1-lifeRatio)*10:1);
-
-      // subtle mouse attraction
-      const dx=mouseX-p.x,dy=mouseY-p.y;
-      const dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<200){
-        p.vx+=dx/dist*0.003;
-        p.vy+=dy/dist*0.003;
-      }
-      p.vx*=0.99;p.vy*=0.99;
-      p.x+=p.vx;p.y+=p.vy;
-
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.color;
-      ctx.globalAlpha=fadeAlpha;
-      ctx.fill();
-
-      // glow
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2);
-      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
-      g.addColorStop(0,p.color+'33');
-      g.addColorStop(1,'transparent');
-      ctx.fillStyle=g;
-      ctx.globalAlpha=fadeAlpha*0.3;
-      ctx.fill();
-    });
-    ctx.globalAlpha=1;
-
-    // connection lines
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const dx=particles[i].x-particles[j].x;
-        const dy=particles[i].y-particles[j].y;
-        const d=Math.sqrt(dx*dx+dy*dy);
-        if(d<100){
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x,particles[i].y);
-          ctx.lineTo(particles[j].x,particles[j].y);
-          ctx.strokeStyle=`rgba(0,212,255,${(1-d/100)*0.08})`;
-          ctx.lineWidth=0.5;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize',resize);
-  init();
-  draw();
-})();
-
-// ═══════════════════════════════════════════════════
-//  CURSOR
-// ═══════════════════════════════════════════════════
-const cursor=document.getElementById('cursor');
-const cursorRing=document.getElementById('cursor-ring');
-let cx=0,cy=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  cx=e.clientX;cy=e.clientY;
-  cursor.style.left=cx+'px';cursor.style.top=cy+'px';
-});
-function animRing(){
-  rx+=(cx-rx)*0.12;ry+=(cy-ry)*0.12;
-  cursorRing.style.left=rx+'px';cursorRing.style.top=ry+'px';
-  requestAnimationFrame(animRing);
-}
-animRing();
-document.querySelectorAll('button,a,.dash-card,.quote-card,.cal-day,.nav-btn').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{
-    cursor.style.transform='translate(-50%,-50%) scale(2)';
-    cursorRing.style.width='60px';cursorRing.style.height='60px';
-    cursorRing.style.opacity='0.5';
-  });
-  el.addEventListener('mouseleave',()=>{
-    cursor.style.transform='translate(-50%,-50%) scale(1)';
-    cursorRing.style.width='40px';cursorRing.style.height='40px';
-    cursorRing.style.opacity='1';
-  });
-});
-</script>
-
-<script type="module">
-import {
-  auth, db, storage,
-  signInAnonymously, onAuthStateChanged, signOut,
-  doc, setDoc, getDoc, updateDoc, onSnapshot,
-  collection, addDoc, deleteDoc, query, orderBy,
-  getDocs, serverTimestamp, ref, uploadBytes, getDownloadURL
-} from './firebase.js';
-
-import { initChat }      from './chat.js';
-import { initVideoCall } from './video-call.js';
-
-// ── Config ──────────────────────────────────────
-const USERS = {
-  user1: { name:'Rody 💙',    code:'rody2024', avatar:'https://api.dicebear.com/8.x/lorelei/svg?seed=rody&backgroundColor=ffb6c1',  partnerId:'user2' },
-  user2: { name:'My Love 💖', code:'love2024', avatar:'https://api.dicebear.com/8.x/lorelei/svg?seed=love&backgroundColor=c8e6c9', partnerId:'user1' },
-};
-
-const QUOTES=[
-  "In your arms, I've found my home. In your heart, I've found my love.",
-  "Every moment with you is a treasure I hold forever.",
-  "You are my today and all of my tomorrows.",
-  "I choose you, and I'll choose you over and over.",
-  "With you, every day feels like the best day of my life.",
-  "You're the reason I believe in love.",
-  "My heart is and always will be yours.",
-  "You make every moment worth living.",
-  "I love you more than words can ever express.",
-  "Being with you is all I ever need.",
-];
-
-// ── State ────────────────────────────────────────
-let myId=null, partnerId=null, myData=null, partnerData=null;
-let calDate=new Date(), calEvents=[];
-
-// ── DOM ──────────────────────────────────────────
-const loginPage=document.getElementById('loginPage');
-const appShell=document.getElementById('appShell');
-const loadScreen=document.getElementById('loadScreen');
-
-// ── Loading ───────────────────────────────────────
-setTimeout(()=>{
-  loadScreen.style.opacity='0';
-  loadScreen.style.transition='opacity 0.5s';
-  setTimeout(()=>loadScreen.style.display='none',500);
-},1600);
-
-// ── Toast ─────────────────────────────────────────
-window.showToast=function(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
-};
-
-// ── Login ─────────────────────────────────────────
-document.getElementById('eyeBtn').addEventListener('click',()=>{
-  const inp=document.getElementById('codeInput');
-  const btn=document.getElementById('eyeBtn').querySelector('i');
-  inp.type=inp.type==='password'?'text':'password';
-  btn.className=inp.type==='password'?'fas fa-eye':'fas fa-eye-slash';
-});
-
-document.getElementById('loginBtn').addEventListener('click', async()=>{
-  const sel=document.getElementById('userSelect').value;
-  const code=document.getElementById('codeInput').value.trim();
-  const err=document.getElementById('loginError');
-  if(!sel){err.textContent='Choose who you are first';return;}
-  if(!USERS[sel]||USERS[sel].code!==code){err.textContent='Wrong secret code 💔';return;}
-  err.textContent='';
-  await signInAnonymously(auth);
-  myId=sel; partnerId=USERS[sel].partnerId;
-  myData=USERS[sel]; partnerData=USERS[partnerId];
-  loginPage.style.opacity='0';loginPage.style.transition='opacity 0.5s';
-  setTimeout(()=>{loginPage.style.display='none';},500);
-  initApp();
-});
-
-// ── App Init ──────────────────────────────────────
-function initApp(){
-  appShell.style.display='block';
-  // avatars
-  document.getElementById('myAvatar').src=myData.avatar;
-  document.getElementById('myName').textContent=myData.name;
-  document.getElementById('partnerAvatar').src=partnerData.avatar;
-  document.getElementById('partnerName').textContent=partnerData.name;
-  document.getElementById('settingsAvatar').src=myData.avatar;
-  document.getElementById('settingsName').textContent=myData.name;
-
-  // save presence
-  setDoc(doc(db,'users',myId),{name:myData.name,avatar:myData.avatar,online:true,lastSeen:serverTimestamp()},{merge:true});
-  window.addEventListener('beforeunload',()=>{
-    navigator.sendBeacon&&setDoc(doc(db,'users',myId),{online:false,lastSeen:serverTimestamp()},{merge:true});
-  });
-
-  // partner presence
-  onSnapshot(doc(db,'users',partnerId),snap=>{
-    const d=snap.data();
-    const status=document.getElementById('partnerStatus');
-    if(d?.online){status.textContent='Online now ✨';status.style.color='#00ff88';}
-    else status.textContent='Offline';
-  });
-
-  // quote
-  loadQuote();
-  document.getElementById('quoteCard').addEventListener('click',loadQuote);
-
-  // counter
-  loadCounter();
-
-  // init modules
-  initChat(db,myId,partnerId,USERS,serverTimestamp);
-  initVideoCall(db,myId,partnerId,USERS,serverTimestamp);
-
-  // nav
-  document.querySelectorAll('.nav-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>nav(btn.dataset.page));
-  });
-
-  // calendar
-  renderCalendar();
-  loadCalendarEvents();
-  document.getElementById('calPrev').addEventListener('click',()=>{calDate.setMonth(calDate.getMonth()-1);renderCalendar();});
-  document.getElementById('calNext').addEventListener('click',()=>{calDate.setMonth(calDate.getMonth()+1);renderCalendar();});
-  document.getElementById('addEventBtn').addEventListener('click',addEvent);
-
-  // todo
-  loadTodos();
-  document.getElementById('addTodoBtn').addEventListener('click',addTodo);
-
-  // memories
-  loadMemories();
-  document.getElementById('memFileInput').addEventListener('change',e=>{
-    if(e.target.files[0]){
-      document.getElementById('memCaption').style.display='block';
-    }
-  });
-  document.getElementById('uploadMemBtn').addEventListener('click',uploadMemory);
-
-  // theme
-  document.querySelectorAll('.theme-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');applyTheme(btn.dataset.theme);
-    });
-  });
-
-  // logout
-  document.getElementById('logoutBtn').addEventListener('click',async()=>{
-    await setDoc(doc(db,'users',myId),{online:false},{merge:true});
-    await signOut(auth);
-    location.reload();
-  });
-
-  // date editor
-  document.getElementById('editDateBtn').addEventListener('click',()=>{
-    const inp=document.getElementById('startDateInput');
-    inp.style.display=inp.style.display==='none'?'inline-block':'none';
-  });
-  document.getElementById('startDateInput').addEventListener('change',async e=>{
-    await setDoc(doc(db,'config','startDate'),{date:e.target.value});
-    document.getElementById('startDateInput').style.display='none';
-  });
-
-  // avatar upload
-  document.getElementById('avatarInput').addEventListener('change',async e=>{
-    showToast('Avatar change requires Storage — coming soon! 💙');
-  });
-
-  // voice
-  document.getElementById('voiceBtn').addEventListener('click',()=>{
-    showToast('Voice messages require Storage upgrade 💙');
-  });
-}
-
-// ── Navigation ────────────────────────────────────
-window.nav=function(page){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+page)?.classList.add('active');
-  document.querySelector(`.nav-btn[data-page="${page}"]`)?.classList.add('active');
-  if(page==='calendar')renderCalendar();
-  if(page==='memories')loadMemories();
-  if(page==='settings')loadTodos();
-};
-
-// ── Quote ─────────────────────────────────────────
-function loadQuote(){
-  const q=QUOTES[Math.floor(Math.random()*QUOTES.length)];
-  document.getElementById('quoteText').textContent='"'+q+'"';
-}
-
-// ── Counter ───────────────────────────────────────
-function loadCounter(){
-  onSnapshot(doc(db,'config','startDate'),snap=>{
-    const d=snap.data()?.date;
-    if(d)startCountdown(new Date(d));
-  });
-}
-function startCountdown(start){
-  function tick(){
-    const now=new Date(),diff=now-start;
-    if(diff<0){document.getElementById('cYears').textContent='0';return;}
-    const totalDays=Math.floor(diff/86400000);
-    const years=Math.floor(totalDays/365);
-    const months=Math.floor((totalDays%365)/30);
-    const days=totalDays%30;
-    const hours=Math.floor((diff%86400000)/3600000);
-    document.getElementById('cYears').textContent=years;
-    document.getElementById('cMonths').textContent=months;
-    document.getElementById('cDays').textContent=days;
-    document.getElementById('cHours').textContent=hours;
-  }
-  tick();setInterval(tick,60000);
-}
-
-// ── Calendar ──────────────────────────────────────
-function renderCalendar(){
-  const grid=document.getElementById('calGrid');
-  const y=calDate.getFullYear(),m=calDate.getMonth();
-  document.getElementById('calMonth').textContent=new Date(y,m,1).toLocaleDateString('en',{month:'long',year:'numeric'});
-  const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
-  grid.innerHTML=days.map(d=>`<div class="cal-day-name">${d}</div>`).join('');
-  const first=new Date(y,m,1).getDay();
-  const total=new Date(y,m+1,0).getDate();
-  for(let i=0;i<first;i++) grid.innerHTML+=`<div></div>`;
-  const today=new Date();
-  for(let d=1;d<=total;d++){
-    const isToday=d===today.getDate()&&m===today.getMonth()&&y===today.getFullYear();
-    const hasEv=calEvents.some(e=>e.date===`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`);
-    grid.innerHTML+=`<div class="cal-day${isToday?' today':''}${hasEv?' has-event':''}" onclick="calDayClick(${y},${m+1},${d})">${d}</div>`;
-  }
-}
-window.calDayClick=function(y,m,d){
-  const date=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-  document.getElementById('eventInput').value='';
-  document.getElementById('eventInput').dataset.date=date;
-  showToast(`📅 ${date} selected`);
-};
-async function loadCalendarEvents(){
-  onSnapshot(collection(db,'events'),snap=>{
-    calEvents=snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderCalendar();
-    renderEventsList();
-  });
-}
-function renderEventsList(){
-  const el=document.getElementById('eventsList');
-  if(!calEvents.length){el.innerHTML='<div style="color:rgba(255,255,255,0.2);font-size:0.8rem;padding:0.5rem">No events yet</div>';return;}
-  el.innerHTML=calEvents.map(e=>`
-    <div class="todo-item">
-      <div class="todo-text"><span style="color:var(--neon-blue);font-family:Orbitron,monospace;font-size:0.7rem">${e.date||''}</span> ${e.title||''}</div>
-      <button onclick="delEvent('${e.id}')" style="background:none;border:none;color:rgba(255,0,110,0.5);cursor:pointer"><i class="fas fa-times"></i></button>
-    </div>`).join('');
-}
-async function addEvent(){
-  const inp=document.getElementById('eventInput');
-  const title=inp.value.trim();
-  const date=inp.dataset.date||new Date().toISOString().slice(0,10);
-  if(!title)return showToast('Enter event title');
-  await addDoc(collection(db,'events'),{title,date,createdBy:myId,createdAt:serverTimestamp()});
-  inp.value='';showToast('Event added ✨');
-}
-window.delEvent=async function(id){
-  await deleteDoc(doc(db,'events',id));
-};
-
-// ── Todos ─────────────────────────────────────────
-async function loadTodos(){
-  onSnapshot(collection(db,'todos'),snap=>{
-    const todos=snap.docs.map(d=>({id:d.id,...d.data()}));
-    const list=document.getElementById('todoList');
-    list.innerHTML=todos.map(t=>`
-      <div class="todo-item ${t.done?'done':''}">
-        <div class="todo-check" onclick="toggleTodo('${t.id}',${!t.done})">
-          ${t.done?'<i class="fas fa-check" style="font-size:0.6rem;color:#fff"></i>':''}
-        </div>
-        <div class="todo-text">${t.text}</div>
-        <button onclick="delTodo('${t.id}')" style="background:none;border:none;color:rgba(255,0,110,0.4);cursor:pointer"><i class="fas fa-times"></i></button>
-      </div>`).join('');
-  });
-}
-async function addTodo(){
-  const inp=document.getElementById('todoInput');
-  const text=inp.value.trim();
-  if(!text)return;
-  await addDoc(collection(db,'todos'),{text,done:false,createdBy:myId,createdAt:serverTimestamp()});
-  inp.value='';
-}
-window.toggleTodo=async function(id,done){
-  await updateDoc(doc(db,'todos',id),{done});
-};
-window.delTodo=async function(id){
-  await deleteDoc(doc(db,'todos',id));
-};
-
-// ── Memories ──────────────────────────────────────
-function loadMemories(){
-  onSnapshot(query(collection(db,'memories'),orderBy('createdAt','desc')),snap=>{
-    const grid=document.getElementById('memoriesGrid');
-    const mems=snap.docs.map(d=>({id:d.id,...d.data()}));
-    if(!mems.length){
-      grid.innerHTML='<div style="grid-column:span 2;text-align:center;color:rgba(255,255,255,0.2);font-size:0.85rem;padding:2rem">Add your first memory 💫</div>';
-      return;
-    }
-    grid.innerHTML=mems.map(m=>`
-      <div class="memory-card">
-        <img src="${m.url||''}" alt="" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'200\\' height=\\'200\\'><rect fill=\\'%230a0015\\'/></svg>'"/>
-        <div class="memory-overlay">
-          <div class="memory-note">${m.note||''}</div>
-          <div class="memory-date">${m.date||''}</div>
-        </div>
-      </div>`).join('');
-  });
-}
-async function uploadMemory(){
-  const file=document.getElementById('memFileInput').files[0];
-  const note=document.getElementById('memNote').value;
-  if(!file)return;
-  if(!storage){showToast('Storage not configured yet 💙');return;}
-  try{
-    showToast('Uploading… 💫');
-    const r=ref(storage,`memories/${Date.now()}_${file.name}`);
-    await uploadBytes(r,file);
-    const url=await getDownloadURL(r);
-    await addDoc(collection(db,'memories'),{
-      url,note,date:new Date().toLocaleDateString(),
-      createdBy:myId,createdAt:serverTimestamp()
-    });
-    document.getElementById('memNote').value='';
-    document.getElementById('memCaption').style.display='none';
-    showToast('Memory saved ✨');
-  }catch(e){showToast('Upload failed — need Storage upgrade 💙');}
-}
-
-// ── Theme ─────────────────────────────────────────
-function applyTheme(t){
-  const r=document.documentElement;
-  if(t==='rose'){
-    r.style.setProperty('--neon-blue','#ff9eb5');
-    r.style.setProperty('--neon-purple','#e040fb');
-    r.style.setProperty('--neon-pink','#ff1744');
-    r.style.setProperty('--deep','#1a0010');
-  } else if(t==='cyber'){
-    r.style.setProperty('--neon-blue','#00ff88');
-    r.style.setProperty('--neon-purple','#00d4ff');
-    r.style.setProperty('--neon-pink','#ff6600');
-    r.style.setProperty('--deep','#000a05');
-  } else {
-    r.style.setProperty('--neon-blue','#00d4ff');
-    r.style.setProperty('--neon-purple','#8b00ff');
-    r.style.setProperty('--neon-pink','#ff006e');
-    r.style.setProperty('--deep','#0a0015');
-  }
-  showToast('Theme changed ✨');
-}
-</script>
-
+  <!-- ═══════════════════════════════════════ FIREBASE ══════════════════ -->
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
